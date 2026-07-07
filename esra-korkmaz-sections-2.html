@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esra Korkmaz — Bölümler: Kliniğimiz + Hasta Yorumları</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   TOKENS — zaten master dosyada (:root) mevcut. Önizleme için tekrar.
+   ============================================================ */
+:root{
+  --white:#FFFFFF; --ice:#F8FAFC; --ice-2:#EFF4FB; --line:#E5EAF2;
+  --ink:#0F172A; --slate:#1E293B; --muted:#64748B; --muted-2:#94A3B8;
+  --royal:#2563EB; --royal-700:#1D4ED8; --beacon:#3B82F6; --beacon-lt:#60A5FA;
+  --night:#0A1533; --night-2:#0E1D45; --night-line:rgba(148,178,255,.14);
+  --on-night:#DCE6FF; --on-night-mut:#8DA2D6;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Manrope",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --container:1240px; --radius:18px; --radius-sm:12px; --radius-pill:999px;
+  --shadow-sm:0 1px 2px rgba(15,23,42,.04),0 2px 8px rgba(15,23,42,.04);
+  --shadow-md:0 8px 30px rgba(15,23,42,.08);
+  --shadow-lg:0 30px 70px rgba(15,23,42,.16);
+  --shadow-royal:0 8px 24px rgba(37,99,235,.28);
+  --shadow-beacon:0 10px 30px rgba(59,130,246,.35);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+body{ font-family:var(--body); color:var(--slate); background:var(--white); line-height:1.6;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; }
+svg{ display:block; }
+.container{ width:100%; max-width:var(--container); margin:0 auto; padding-inline:28px; }
+.sec-eyebrow{ display:inline-flex; align-items:center; gap:9px; font-family:var(--mono);
+  font-size:12px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:var(--royal); }
+.sec-eyebrow .beacon{ position:relative; width:8px; height:8px; border-radius:50%; background:var(--beacon); }
+.sec-eyebrow .beacon::after{ content:""; position:absolute; inset:-5px; border-radius:50%; border:1.5px solid var(--beacon); animation:ripple 2.4s infinite; }
+.link-arrow{ display:inline-flex; align-items:center; gap:9px; font-weight:700; font-size:14.5px; color:var(--royal);
+  transition:gap .2s var(--ease); }
+.link-arrow svg{ width:18px; height:18px; }
+.link-arrow:hover{ gap:13px; }
+@keyframes ripple{ 0%{transform:scale(.8);opacity:.9;} 100%{transform:scale(1.9);opacity:0;} }
+
+/* ============================================================
+   BÖLÜM 3 — KLİNİĞİMİZ & TEKNOLOJİ (açık)
+   ============================================================ */
+.clinic{ padding:104px 0; background:var(--white); }
+.clinic-grid{ display:grid; grid-template-columns:1fr 1.02fr; gap:64px; align-items:center; }
+.clinic-copy h2{ font-family:var(--display); font-weight:700; font-size:clamp(32px,4vw,56px);
+  line-height:1.03; letter-spacing:-.035em; color:var(--ink); margin:22px 0 20px; max-width:14ch; }
+.clinic-copy h2 em{ font-style:normal; color:var(--royal); }
+.clinic-copy .lead{ color:var(--muted); font-size:16px; max-width:46ch; margin-bottom:34px; }
+.feat{ display:flex; gap:16px; padding:18px 0; border-top:1px solid var(--line); }
+.feat:last-of-type{ border-bottom:1px solid var(--line); margin-bottom:30px; }
+.feat-ic{ width:44px; height:44px; border-radius:12px; flex-shrink:0; display:grid; place-items:center;
+  background:var(--ice-2); color:var(--royal); }
+.feat-ic svg{ width:22px; height:22px; }
+.feat h3{ font-family:var(--display); font-weight:600; font-size:17.5px; letter-spacing:-.01em; color:var(--ink); }
+.feat p{ color:var(--muted); font-size:14px; margin-top:3px; }
+.feat.night .feat-ic{ background:var(--night); color:var(--beacon-lt); }
+
+/* Tarama ekranı görseli */
+.scan-wrap{ position:relative; }
+.scan{ position:relative; border-radius:22px; overflow:hidden; background:var(--night);
+  box-shadow:var(--shadow-lg); border:1px solid var(--night-line); }
+.scan::before{ content:""; position:absolute; inset:0; pointer-events:none; z-index:3;
+  background:radial-gradient(60% 50% at 50% 40%, rgba(59,130,246,.20), transparent 70%); }
+.scan-bar{ position:relative; z-index:2; display:flex; align-items:center; gap:8px; padding:15px 18px; border-bottom:1px solid var(--night-line); }
+.scan-bar .dot{ width:10px; height:10px; border-radius:50%; background:var(--night-line); }
+.scan-bar .dot:nth-child(2){ background:rgba(148,178,255,.25); }
+.scan-bar .dot:nth-child(3){ background:rgba(148,178,255,.18); }
+.scan-bar .lbl{ margin-left:8px; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em; color:var(--on-night-mut); text-transform:uppercase; }
+.scan-bar .live{ margin-left:auto; display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:11.5px; color:var(--beacon-lt); }
+.scan-bar .live .b{ width:7px; height:7px; border-radius:50%; background:var(--beacon); box-shadow:0 0 0 0 rgba(59,130,246,.6); animation:pulse-dot 2s infinite; }
+.scan-stage{ position:relative; aspect-ratio:1/.82; }
+.scan-stage svg.scanview{ position:absolute; inset:0; width:100%; height:100%; }
+.scan-line{ position:absolute; left:0; right:0; height:70px; z-index:2; pointer-events:none;
+  background:linear-gradient(180deg, transparent, rgba(96,165,250,.28) 60%, rgba(96,165,250,.5) 100%);
+  border-bottom:1.5px solid rgba(147,197,253,.9); animation:scan 3.4s var(--ease) infinite; }
+@keyframes scan{ 0%{ top:-70px; } 100%{ top:100%; } }
+
+/* Yüzen bilgi kartı */
+.scan-card{ position:absolute; left:-26px; bottom:34px; z-index:4; display:flex; align-items:center; gap:14px;
+  background:var(--white); border:1px solid var(--line); border-radius:16px; padding:16px 20px; box-shadow:var(--shadow-md); }
+.scan-card .ic{ width:42px; height:42px; border-radius:12px; display:grid; place-items:center;
+  background:linear-gradient(135deg,var(--beacon),var(--royal)); color:#fff; }
+.scan-card .ic svg{ width:22px; height:22px; }
+.scan-card b{ font-family:var(--display); font-weight:700; font-size:22px; letter-spacing:-.02em; color:var(--ink); display:block; line-height:1; }
+.scan-card span{ font-size:12.5px; color:var(--muted); }
+
+/* ============================================================
+   BÖLÜM 4 — HASTA YORUMLARI (buz mavisi)
+   ============================================================ */
+.revs{ padding:104px 0; background:linear-gradient(180deg, var(--ice) 0%, var(--white) 100%); }
+.revs-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:32px; margin-bottom:48px; flex-wrap:wrap; }
+.revs-head h2{ font-family:var(--display); font-weight:700; font-size:clamp(32px,4vw,56px);
+  line-height:1.03; letter-spacing:-.035em; color:var(--ink); margin-top:22px; max-width:14ch; }
+.revs-head h2 em{ font-style:normal; color:var(--royal); }
+.rating-badge{ display:flex; align-items:center; gap:16px; background:var(--white); border:1px solid var(--line);
+  border-radius:var(--radius); padding:16px 22px; box-shadow:var(--shadow-sm); }
+.rating-badge .score{ font-family:var(--display); font-weight:700; font-size:38px; letter-spacing:-.03em; color:var(--ink); line-height:1; }
+.rating-badge .stars{ display:flex; gap:2px; color:#F5A524; }
+.rating-badge .stars svg{ width:15px; height:15px; }
+.rating-badge .meta{ font-size:12.5px; color:var(--muted); margin-top:3px; }
+
+.rev-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.rev{ position:relative; background:var(--white); border:1px solid var(--line); border-radius:var(--radius);
+  padding:30px; display:flex; flex-direction:column; transition:transform .3s var(--ease),box-shadow .3s var(--ease); }
+.rev:hover{ transform:translateY(-6px); box-shadow:var(--shadow-md); }
+.rev .quote-mark{ font-family:var(--display); font-weight:800; font-size:60px; line-height:.6; color:var(--ice-2); height:26px; }
+.rev .stars{ display:flex; gap:2px; color:#F5A524; margin-bottom:16px; }
+.rev .stars svg{ width:16px; height:16px; }
+.rev p{ color:var(--slate); font-size:15px; flex-grow:1; }
+.rev .who{ display:flex; align-items:center; gap:13px; margin-top:24px; padding-top:20px; border-top:1px solid var(--line); }
+.rev .av{ width:44px; height:44px; border-radius:50%; display:grid; place-items:center; flex-shrink:0;
+  font-family:var(--display); font-weight:700; font-size:16px; color:#fff; background:linear-gradient(135deg,var(--royal),var(--royal-700)); }
+.rev .who b{ font-weight:700; font-size:14.5px; color:var(--ink); display:block; }
+.rev .who span{ font-size:12.5px; color:var(--muted); }
+
+/* Gece acil vurgulu kart */
+.rev.hl{ border-color:transparent; background:var(--night); box-shadow:0 20px 50px rgba(10,21,51,.28); }
+.rev.hl::before{ content:""; position:absolute; inset:0; border-radius:var(--radius); pointer-events:none;
+  background:radial-gradient(80% 60% at 80% 0%, rgba(59,130,246,.22), transparent 62%); }
+.rev.hl .quote-mark{ color:rgba(148,178,255,.14); }
+.rev.hl p{ color:var(--on-night); }
+.rev.hl .who{ border-top-color:var(--night-line); }
+.rev.hl .who b{ color:#fff; }
+.rev.hl .who span{ color:var(--beacon-lt); }
+.rev.hl .av{ background:linear-gradient(135deg,var(--beacon),var(--royal)); }
+.rev.hl .tag{ position:absolute; top:26px; right:26px; display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.04em; color:var(--beacon-lt);
+  background:rgba(59,130,246,.16); padding:5px 10px; border-radius:7px; }
+.rev.hl .tag .b{ width:6px; height:6px; border-radius:50%; background:var(--beacon); box-shadow:0 0 0 0 rgba(59,130,246,.6); animation:pulse-dot 2s infinite; }
+
+@keyframes pulse-dot{ 0%{box-shadow:0 0 0 0 rgba(59,130,246,.5);} 70%{box-shadow:0 0 0 7px rgba(59,130,246,0);} 100%{box-shadow:0 0 0 0 rgba(59,130,246,0);} }
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:980px){
+  .clinic{ padding:76px 0; }
+  .clinic-grid{ grid-template-columns:1fr; gap:44px; }
+  .scan-card{ left:16px; }
+  .revs{ padding:76px 0; }
+  .revs-head{ align-items:flex-start; }
+  .rev-grid{ grid-template-columns:1fr; }
+  .rev.hl{ order:-1; }
+}
+@media (max-width:560px){
+  .container{ padding-inline:20px; }
+  .scan-card{ left:12px; right:12px; bottom:12px; }
+}
+@media (prefers-reduced-motion:reduce){ *,*::before,*::after{ animation:none !important; transition-duration:.01ms !important; } }
+:focus-visible{ outline:2.5px solid var(--royal); outline-offset:3px; border-radius:6px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ BÖLÜM 3 — KLİNİĞİMİZ & TEKNOLOJİ ═══════════════ -->
+<section class="clinic">
+  <div class="container">
+    <div class="clinic-grid">
+
+      <div class="clinic-copy">
+        <span class="sec-eyebrow"><span class="beacon"></span> Kliniğimiz</span>
+        <h2>Gece bile, <em>gündüz netliğinde.</em></h2>
+        <p class="lead">Karanlık bir muayenehane değil; tam donanımlı, aydınlık ve sakin bir ortam. Gündüz kullandığımız teknolojinin aynısı, saat kaç olursa olsun emrinizde.</p>
+
+        <div class="feat">
+          <div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3M7 9l2.5 3L12 8l2 3 3-4"/></svg></div>
+          <div><h3>Dijital Görüntüleme</h3><p>Düşük radyasyonlu 3B tarama, saniyeler içinde sonuç.</p></div>
+        </div>
+        <div class="feat">
+          <div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <div><h3>Steril & Güvenli Ortam</h3><p>Her hasta için tek kullanımlık set, tam sterilizasyon protokolü.</p></div>
+        </div>
+        <div class="feat night">
+          <div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 15.5c-2.5.4-5-.3-7-2.1-2-1.9-2.8-4.4-2.4-6.9.1-.6-.6-1-1.1-.7A7.5 7.5 0 0 0 18 19a7.4 7.4 0 0 0 2.8-2.4c.3-.5-.1-1.2-.8-1.1Z"/></svg></div>
+          <div><h3>Geceleri de Tam Kadro</h3><p>Nöbetçi değil, tam ekip: hekim, asistan ve resepsiyon her saat hazır.</p></div>
+        </div>
+
+        <a href="#" class="link-arrow">Kliniği keşfet <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+
+      <!-- Tarama ekranı -->
+      <div class="scan-wrap">
+        <div class="scan">
+          <div class="scan-bar">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="lbl">Dijital Görüntüleme</span>
+          </div>
+          <div class="scan-stage">
+            <img src="Adsız tasarım.png" alt="Panoramik Tarama Görüntüsü" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+            <div class="scan-line"></div>
+          </div>
+        </div>
+
+        <div class="scan-card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7Z"/></svg></div>
+          <div><b>Hızlı Teşhis</b><span>Saniyeler içinde tarama sonucu</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BÖLÜM 4 — HASTA YORUMLARI ═══════════════ -->
+<section class="revs">
+  <div class="container">
+    <div class="revs-head">
+      <div>
+        <span class="sec-eyebrow"><span class="beacon"></span> Hasta Yorumları</span>
+        <h2>Gece gelenler, <em>gündüz anlatıyor.</em></h2>
+      </div>
+      <div class="rating-badge">
+        <div class="score">4.9</div>
+        <div>
+          <div class="stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg>
+          </div>
+          <div class="meta">320+ Google değerlendirmesi</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rev-grid">
+
+      <!-- Gece acil (vurgulu) -->
+      <article class="rev hl">
+        <span class="tag"><span class="b"></span> Gece acil</span>
+        <div class="quote-mark">”</div>
+        <div class="stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg>
+        </div>
+        <p>Gece 02:00'de dolgum düştü ve resmen panikledim. Açık tek yer burasıydı; aradığımda telefonu hemen açtılar, yarım saat içinde müdahale edildi. Bu huzuru anlatmak zor.</p>
+        <div class="who"><div class="av">MK</div><div><b>Mert K.</b><span>Gece acil hastası</span></div></div>
+      </article>
+
+      <!-- İmplant -->
+      <article class="rev">
+        <div class="quote-mark">”</div>
+        <div class="stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg>
+        </div>
+        <p>İmplant sürecinde her adımı sabırla anlattılar. Sonuç o kadar doğal ki hangi dişimin implant olduğunu ben bile unutuyorum. Ekibe çok teşekkürler.</p>
+        <div class="who"><div class="av">AD</div><div><b>Ayşe D.</b><span>İmplant hastası</span></div></div>
+      </article>
+
+      <!-- Veli -->
+      <article class="rev">
+        <div class="quote-mark">”</div>
+        <div class="stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 18.3 5.1 21.7l1.8-7.3L1.2 9.5 8.7 8.9Z"/></svg>
+        </div>
+        <p>Çocuğum gece diş ağrısıyla uyandı; sabahı beklemek zorunda kalmadık. Hem ona hem bana çok nazik davrandılar, korkusunu bir çırpıda geçirdiler.</p>
+        <div class="who"><div class="av">ZA</div><div><b>Zeynep A.</b><span>Veli</span></div></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

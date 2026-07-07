@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esra Korkmaz — Bölümler: Hakkımızda + SSS + Randevu</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   TOKENS — zaten master dosyada (:root). Önizleme için tekrar.
+   ============================================================ */
+:root{
+  --white:#FFFFFF; --ice:#F8FAFC; --ice-2:#EFF4FB; --line:#E5EAF2;
+  --ink:#0F172A; --slate:#1E293B; --muted:#64748B; --muted-2:#94A3B8;
+  --royal:#2563EB; --royal-700:#1D4ED8; --beacon:#3B82F6; --beacon-lt:#60A5FA;
+  --night:#0A1533; --night-2:#0E1D45; --night-line:rgba(148,178,255,.14);
+  --on-night:#DCE6FF; --on-night-mut:#8DA2D6;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Manrope",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --container:1240px; --radius:18px; --radius-sm:12px; --radius-pill:999px;
+  --shadow-sm:0 1px 2px rgba(15,23,42,.04),0 2px 8px rgba(15,23,42,.04);
+  --shadow-md:0 8px 30px rgba(15,23,42,.08);
+  --shadow-lg:0 30px 70px rgba(15,23,42,.16);
+  --shadow-royal:0 8px 24px rgba(37,99,235,.28);
+  --shadow-beacon:0 10px 30px rgba(59,130,246,.35);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+body{ font-family:var(--body); color:var(--slate); background:var(--white); line-height:1.6;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; }
+svg{ display:block; }
+input,select,textarea,button{ font-family:inherit; font-size:inherit; }
+.container{ width:100%; max-width:var(--container); margin:0 auto; padding-inline:28px; }
+.sec-eyebrow{ display:inline-flex; align-items:center; gap:9px; font-family:var(--mono);
+  font-size:12px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:var(--royal); }
+.sec-eyebrow .beacon{ position:relative; width:8px; height:8px; border-radius:50%; background:var(--beacon); }
+.sec-eyebrow .beacon::after{ content:""; position:absolute; inset:-5px; border-radius:50%; border:1.5px solid var(--beacon); animation:ripple 2.4s infinite; }
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:9px; padding:12px 20px; border-radius:var(--radius-pill);
+  font-weight:700; font-size:14.5px; letter-spacing:-.01em; transition:transform .2s var(--ease),box-shadow .2s var(--ease); cursor:pointer; border:none; }
+.btn svg{ width:17px; height:17px; }
+.btn-primary{ color:#fff; background:linear-gradient(135deg,var(--royal),var(--royal-700)); box-shadow:var(--shadow-royal); }
+.btn-primary:hover{ transform:translateY(-2px); box-shadow:0 14px 34px rgba(37,99,235,.4); }
+.btn-emergency{ color:#fff; background:linear-gradient(135deg,var(--beacon),var(--royal)); box-shadow:var(--shadow-beacon); }
+.btn-emergency:hover{ transform:translateY(-2px); }
+@keyframes ripple{ 0%{transform:scale(.8);opacity:.9;} 100%{transform:scale(1.9);opacity:0;} }
+@keyframes pulse-dot{ 0%{box-shadow:0 0 0 0 rgba(59,130,246,.5);} 70%{box-shadow:0 0 0 7px rgba(59,130,246,0);} 100%{box-shadow:0 0 0 0 rgba(59,130,246,0);} }
+
+/* ============================================================
+   BÖLÜM 5 — HAKKIMIZDA / DR. ESRA KORKMAZ (açık)
+   ============================================================ */
+.about{ padding:104px 0; background:var(--white); }
+.about-grid{ display:grid; grid-template-columns:.82fr 1.18fr; gap:60px; align-items:center; }
+
+/* Portre kartı (foto gelince iç blok değişir) */
+.portrait{ position:relative; border-radius:26px; aspect-ratio:4/5; overflow:hidden; border:1px solid var(--line);
+  background:radial-gradient(120% 90% at 30% 10%, #DCE9FF, #EFF4FB 45%, #FFFFFF 100%); box-shadow:var(--shadow-lg); }
+.portrait .wm{ position:absolute; right:-30px; bottom:-40px; font-family:var(--display); font-weight:800;
+  font-size:280px; line-height:1; color:var(--royal); opacity:.06; }
+.portrait .mono{ position:absolute; inset:0; display:grid; place-items:center; }
+.portrait .mono b{ font-family:var(--display); font-weight:700; font-size:120px; letter-spacing:-.04em;
+  color:var(--royal); opacity:.9; }
+.portrait .drpill{ position:absolute; top:20px; left:20px; display:inline-flex; align-items:center; gap:8px;
+  background:rgba(255,255,255,.85); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+  border:1px solid var(--line); border-radius:var(--radius-pill); padding:7px 14px; font-size:12.5px; font-weight:700; color:var(--ink); }
+.portrait .drpill .d{ width:7px; height:7px; border-radius:50%; background:var(--beacon); }
+.portrait .exp{ position:absolute; left:20px; bottom:20px; right:20px; display:flex; align-items:center; justify-content:space-between;
+  background:var(--night); color:#fff; border-radius:16px; padding:16px 20px; box-shadow:var(--shadow-md); }
+.portrait .exp b{ font-family:var(--display); font-weight:700; font-size:26px; letter-spacing:-.02em; line-height:1; }
+.portrait .exp span{ font-size:12px; color:var(--on-night-mut); }
+.portrait .exp .r{ text-align:right; }
+
+.about-copy h2{ font-family:var(--display); font-weight:700; font-size:clamp(30px,3.8vw,52px);
+  line-height:1.05; letter-spacing:-.035em; color:var(--ink); margin:22px 0 22px; max-width:18ch; }
+.about-copy h2 em{ font-style:normal; color:var(--royal); }
+.about-copy p{ color:var(--muted); font-size:16px; max-width:56ch; margin-bottom:16px; }
+.about-copy p b{ color:var(--slate); font-weight:600; }
+.about-sign{ display:flex; align-items:center; gap:16px; margin:30px 0 26px; }
+.about-sign .name{ font-family:var(--display); font-weight:700; font-size:22px; color:var(--ink); letter-spacing:-.02em; transform:skewX(-6deg); }
+.about-sign .role{ font-size:13px; color:var(--muted); }
+.about-sign .line{ width:1px; height:38px; background:var(--line); }
+.about-chips{ display:flex; flex-wrap:wrap; gap:10px; }
+.about-chips span{ display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:600; color:var(--slate);
+  background:var(--ice); border:1px solid var(--line); padding:8px 14px; border-radius:var(--radius-pill); }
+.about-chips span svg{ width:15px; height:15px; color:var(--royal); }
+
+/* ============================================================
+   BÖLÜM 6 — SSS (buz mavisi)
+   ============================================================ */
+.faq{ padding:104px 0; background:linear-gradient(180deg,var(--ice) 0%, var(--white) 100%); }
+.faq-grid{ display:grid; grid-template-columns:.85fr 1.15fr; gap:56px; align-items:start; }
+.faq-intro h2{ font-family:var(--display); font-weight:700; font-size:clamp(30px,3.8vw,50px);
+  line-height:1.04; letter-spacing:-.035em; color:var(--ink); margin:22px 0 16px; max-width:12ch; }
+.faq-intro h2 em{ font-style:normal; color:var(--royal); }
+.faq-intro p{ color:var(--muted); font-size:15.5px; max-width:38ch; margin-bottom:26px; }
+.faq-help{ display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:var(--radius);
+  background:var(--night); color:#fff; box-shadow:var(--shadow-md); }
+.faq-help .ic{ width:44px; height:44px; border-radius:12px; flex-shrink:0; display:grid; place-items:center;
+  background:rgba(148,178,255,.14); color:var(--beacon-lt); }
+.faq-help .ic svg{ width:22px; height:22px; }
+.faq-help b{ display:block; font-weight:700; font-size:15px; }
+.faq-help a{ font-family:var(--mono); font-size:14px; color:var(--beacon-lt); }
+
+.faq-list{ display:flex; flex-direction:column; gap:12px; }
+details.qa{ background:var(--white); border:1px solid var(--line); border-radius:var(--radius);
+  padding:4px 24px; transition:border-color .25s var(--ease), box-shadow .25s var(--ease); }
+details.qa[open]{ border-color:#C9D8F5; box-shadow:var(--shadow-md); }
+details.qa summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:16px;
+  padding:20px 0; font-family:var(--display); font-weight:600; font-size:18px; letter-spacing:-.015em; color:var(--ink); }
+details.qa summary::-webkit-details-marker{ display:none; }
+details.qa .chev{ margin-left:auto; width:30px; height:30px; flex-shrink:0; border-radius:50%;
+  border:1px solid var(--line); display:grid; place-items:center; color:var(--royal); transition:transform .3s var(--ease), background .25s; }
+details.qa .chev svg{ width:15px; height:15px; }
+details.qa[open] .chev{ transform:rotate(45deg); background:var(--ice); }
+details.qa .ans{ padding:0 46px 22px 0; color:var(--muted); font-size:15px; }
+details.qa .ans b{ color:var(--slate); font-weight:600; }
+
+/* ============================================================
+   BÖLÜM 7 — RANDEVU & İLETİŞİM (açık + koyu panel)
+   ============================================================ */
+.book{ padding:104px 0; background:var(--white); }
+.book-head{ max-width:640px; margin-bottom:44px; }
+.book-head h2{ font-family:var(--display); font-weight:700; font-size:clamp(32px,4vw,56px);
+  line-height:1.03; letter-spacing:-.035em; color:var(--ink); margin:22px 0 14px; }
+.book-head h2 em{ font-style:normal; color:var(--royal); }
+.book-head p{ color:var(--muted); font-size:16px; max-width:52ch; }
+.book-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:24px; align-items:stretch; }
+
+/* Form */
+.book-form{ background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:34px; box-shadow:var(--shadow-sm); }
+.field{ margin-bottom:18px; }
+.field label{ display:block; font-size:13px; font-weight:600; color:var(--slate); margin-bottom:8px; }
+.field input,.field select,.field textarea{ width:100%; padding:14px 16px; border:1px solid var(--line);
+  border-radius:12px; background:var(--ice); color:var(--ink); transition:border-color .2s var(--ease),background .2s var(--ease); }
+.field input:focus,.field select:focus,.field textarea:focus{ outline:none; border-color:var(--royal); background:var(--white); }
+.field textarea{ resize:vertical; min-height:92px; }
+.field-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.book-form .btn-primary{ width:100%; padding:15px; font-size:15.5px; margin-top:6px; }
+.form-note{ margin-top:14px; font-size:12.5px; color:var(--muted); text-align:center; }
+.form-note a{ color:var(--royal); font-weight:600; }
+.form-ok{ display:none; align-items:center; gap:10px; margin-top:16px; padding:14px 16px; border-radius:12px;
+  background:#ECFDF5; border:1px solid #A7F3D0; color:#047857; font-size:14px; font-weight:600; }
+.form-ok svg{ width:18px; height:18px; flex-shrink:0; }
+.form-ok.show{ display:flex; }
+
+/* Koyu iletişim paneli */
+.book-info{ position:relative; overflow:hidden; background:var(--night); color:var(--on-night);
+  border-radius:var(--radius); padding:34px; display:flex; flex-direction:column; }
+.book-info::before{ content:""; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(60% 45% at 85% 0%, rgba(59,130,246,.24), transparent 62%); }
+.book-info > *{ position:relative; z-index:1; }
+.bi-live{ display:inline-flex; align-items:center; gap:9px; align-self:flex-start; padding:8px 14px; border-radius:var(--radius-pill);
+  border:1px solid var(--night-line); font-family:var(--mono); font-size:12.5px; color:#fff; margin-bottom:24px; }
+.bi-live .d{ width:8px; height:8px; border-radius:50%; background:var(--beacon); box-shadow:0 0 0 0 rgba(59,130,246,.6); animation:pulse-dot 2s infinite; }
+.bi-live .c{ color:var(--beacon-lt); }
+.bi-row{ display:flex; gap:14px; padding:16px 0; border-bottom:1px solid var(--night-line); }
+.bi-row:last-of-type{ border-bottom:none; }
+.bi-row .ic{ width:40px; height:40px; border-radius:11px; flex-shrink:0; display:grid; place-items:center;
+  background:rgba(148,178,255,.1); color:var(--beacon-lt); }
+.bi-row .ic svg{ width:19px; height:19px; }
+.bi-row .k{ font-size:12px; color:var(--on-night-mut); }
+.bi-row .v{ font-weight:600; color:#fff; font-size:15px; margin-top:2px; }
+.bi-row .v a{ color:#fff; }
+.bi-row .v a:hover{ color:var(--beacon-lt); }
+.bi-hours{ font-family:var(--mono); font-size:13px; color:var(--beacon-lt); }
+.bi-cta{ margin-top:auto; padding-top:24px; }
+.bi-cta .btn-emergency{ width:100%; }
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:980px){
+  .about{ padding:76px 0; } .about-grid{ grid-template-columns:1fr; gap:36px; }
+  .portrait{ max-width:420px; margin:0 auto; width:100%; }
+  .faq{ padding:76px 0; } .faq-grid{ grid-template-columns:1fr; gap:34px; }
+  .book{ padding:76px 0; } .book-grid{ grid-template-columns:1fr; }
+}
+@media (max-width:560px){
+  .container{ padding-inline:20px; }
+  .field-row{ grid-template-columns:1fr; }
+  .about-sign{ flex-wrap:wrap; }
+  .book-form,.book-info{ padding:26px; }
+}
+@media (prefers-reduced-motion:reduce){ *,*::before,*::after{ animation:none !important; transition-duration:.01ms !important; } }
+:focus-visible{ outline:2.5px solid var(--royal); outline-offset:3px; border-radius:6px; }
+.book-info :focus-visible{ outline-color:var(--beacon-lt); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ BÖLÜM 5 — HAKKIMIZDA ═══════════════ -->
+<section class="about">
+  <div class="container">
+    <div class="about-grid">
+
+      <!-- Portre (foto gelince iç blok değiştirilecek) -->
+      <div class="portrait">
+        <div class="wm" aria-hidden="true">EK</div>
+        <div class="mono"><b>EK</b></div>
+        <span class="drpill"><span class="d"></span> Dr. Esra Korkmaz</span>
+        <div class="exp">
+          <div><b>12+</b><span>yıl deneyim</span></div>
+          <div class="r"><b>8.000+</b><span>tedavi</span></div>
+        </div>
+      </div>
+
+      <!-- İçerik -->
+      <div class="about-copy">
+        <span class="sec-eyebrow"><span class="beacon"></span> Hakkımızda</span>
+        <h2>Her şey, bir gece nöbetinde <em>başladı.</em></h2>
+        <p>Yıllar önce, gece yarısı şiddetli diş ağrısıyla gelen ama gidecek açık bir yer bulamayan bir hastayı hiç unutmadım. O gece bir şeye karar verdim: <b>ağrı saat gözetmiyorsa, biz de gözetmemeliyiz.</b></p>
+        <p>Bugün Esra Korkmaz Diş Muayenehanesi; gündüz estetik ve implant tedavilerini titizlikle sürdürürken, gece de kapılarını hiç kapatmayan bir klinik. Amacımız tek: doğru anda, doğru yerde yanınızda olmak.</p>
+
+        <div class="about-sign">
+          <div>
+            <div class="name">Esra Korkmaz</div>
+            <div class="role">Diş Hekimi · Kurucu</div>
+          </div>
+          <div class="line"></div>
+          <div class="role">Sizi de aramızda<br>görmek için sabırsızız.</div>
+        </div>
+
+        <div class="about-chips">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5"/></svg> Hacettepe Diş Hekimliği</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 2.4 7.4H22l-6 4.5 2.3 7.1L12 16.5 5.7 21l2.3-7.1-6-4.5h7.6Z"/></svg> İmplantoloji Sertifikası</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> TDB Üyesi</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BÖLÜM 6 — SSS ═══════════════ -->
+<section class="faq">
+  <div class="container">
+    <div class="faq-grid">
+
+      <div class="faq-intro">
+        <span class="sec-eyebrow"><span class="beacon"></span> Sıkça Sorulanlar</span>
+        <h2>Aklınızda soru mu var?</h2>
+        <p>En çok merak edilenleri topladık. Cevabını bulamazsanız, dilediğiniz saatte arayın — hattımız hep açık.</p>
+        <div class="faq-help">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg></div>
+          <div><b>Hâlâ mı sorunuz var?</b><a href="tel:+905435934766">0543 593 47 66</a></div>
+        </div>
+      </div>
+
+      <div class="faq-list">
+        <details class="qa" open>
+          <summary>Gerçekten 7/24 açık mısınız? <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <div class="ans">Evet. Hafta içi, hafta sonu ve resmi tatiller dâhil <b>günün her saati</b> hizmet veriyoruz. Gece ekibimizde nöbetçi değil, tam kadro hekim ve asistan bulunur.</div>
+        </details>
+        <details class="qa">
+          <summary>Randevusuz gelebilir miyim? <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <div class="ans">Acil durumlarda <b>randevusuz gelebilirsiniz</b>; kapıda sizi karşılarız. Planlı tedaviler (implant, estetik, ortodonti) için ise randevu almanızı öneririz; bekleme süreniz olmaz.</div>
+        </details>
+        <details class="qa">
+          <summary>Gece gelmek daha mı pahalı? <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <div class="ans">Muayene ücretimiz <b>saatten bağımsız</b> ve şeffaftır. İşlem öncesi tüm ücreti net olarak paylaşır, sürpriz bir bedelle karşılaşmamanızı sağlarız.</div>
+        </details>
+        <details class="qa">
+          <summary>Hangi durumlarda acil gelmeliyim? <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <div class="ans">Şiddetli ve geçmeyen diş ağrısı, kırılan veya düşen diş/dolgu, yüzde şişlik, darbe sonrası travma ve durmayan kanama durumlarında <b>vakit kaybetmeden</b> gelmenizi öneririz.</div>
+        </details>
+        <details class="qa">
+          <summary>Çocuklar için de hizmet veriyor musunuz? <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+          <div class="ans">Evet. Çocuk diş hekimliği (pedodonti) alanında da hizmet veriyoruz ve küçük hastalarımızın korkularını yumuşatan bir yaklaşımı benimsiyoruz.</div>
+        </details>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BÖLÜM 7 — RANDEVU & İLETİŞİM ═══════════════ -->
+<section class="book">
+  <div class="container">
+    <div class="book-head">
+      <span class="sec-eyebrow"><span class="beacon"></span> Randevu</span>
+      <h2>Sıra sizde. <em>Gülüşünüzü planlayalım.</em></h2>
+      <p>Formu doldurun, en kısa sürede size dönelim. Acil bir durumsa, formu beklemeyin — doğrudan arayın, her an buradayız.</p>
+    </div>
+
+    <div class="book-grid">
+
+      <!-- Form -->
+      <div class="book-form">
+        <form id="bookForm" novalidate>
+          <div class="field-row">
+            <div class="field"><label for="ad">Ad Soyad</label><input id="ad" type="text" placeholder="Adınız ve soyadınız" required></div>
+            <div class="field"><label for="tel">Telefon</label><input id="tel" type="tel" placeholder="05xx xxx xx xx" required></div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="hizmet">Hizmet</label>
+              <select id="hizmet">
+                <option>Diş Beyazlatma</option>
+                <option>Estetik Diş Hekimliği</option>
+                <option>Ortodonti</option>
+                <option>Kanal Tedavisi</option>
+                <option>Gece Acil Diş</option>
+                <option>Kontrol / Genel Muayene</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="zaman">Tercih edilen zaman</label>
+              <select id="zaman">
+                <option>En kısa sürede</option>
+                <option>Gündüz (09:00–18:00)</option>
+                <option>Akşam / Gece</option>
+                <option>Hafta sonu</option>
+              </select>
+            </div>
+          </div>
+          <div class="field"><label for="not">Mesajınız (opsiyonel)</label><textarea id="not" placeholder="Şikâyetinizi kısaca yazabilirsiniz"></textarea></div>
+          <button type="submit" class="btn btn-primary">Randevu Talebi Gönder</button>
+          <p class="form-note">Acil durumlar için <a href="tel:+905435934766">0543 593 47 66</a>'ı arayın.</p>
+          <div class="form-ok" id="formOk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Talebiniz alındı. En kısa sürede sizinle iletişime geçeceğiz.</div>
+        </form>
+      </div>
+
+      <!-- Koyu iletişim paneli -->
+      <div class="book-info">
+        <span class="bi-live"><span class="d"></span> Şu an açık · <span class="c" id="biClock">--:--</span></span>
+
+        <div class="bi-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <div><div class="k">Çalışma Saatleri</div><div class="v bi-hours">7 gün · 24 saat · Kesintisiz</div></div>
+        </div>
+        <div class="bi-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="k">Adres</div><div class="v">Fidanlık, Ziya Gökalp Cd. 31/2, 06420 Çankaya/Ankara</div></div>
+        </div>
+        <div class="bi-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg></div>
+          <div><div class="k">Telefon</div><div class="v"><a href="tel:+905435934766">0543 593 47 66</a></div></div>
+        </div>
+
+        <div class="bi-cta">
+          <a href="https://wa.me/905435934766" class="btn btn-emergency" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 21l2.2-5.3A8.5 8.5 0 1 1 21 11.5Z"/></svg> WhatsApp'tan Yaz</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  "use strict";
+  // İletişim paneli canlı saat
+  var c = document.getElementById("biClock");
+  function tick(){ if(c) c.textContent = new Date().toLocaleTimeString("tr-TR",{ timeZone:"Europe/Istanbul", hour:"2-digit", minute:"2-digit" }); }
+  tick(); setInterval(tick, 15000);
+  // Form (ön yüz — backend sonra bağlanacak)
+  var f = document.getElementById("bookForm"), ok = document.getElementById("formOk");
+  if(f){ f.addEventListener("submit", function(e){ e.preventDefault(); ok.classList.add("show"); f.querySelector("button").textContent = "Gönderildi"; }); }
+})();
+</script>
+</body>
+</html>

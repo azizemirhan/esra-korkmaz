@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esra Korkmaz — Bölümler: Hizmetler + Neden Gece Açığız</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   TOKENS — bunlar zaten master dosyada var (:root).
+   Burada sadece önizleme için tekrar ekli.
+   ============================================================ */
+:root{
+  --white:#FFFFFF; --ice:#F8FAFC; --ice-2:#EFF4FB; --line:#E5EAF2;
+  --ink:#0F172A; --slate:#1E293B; --muted:#64748B; --muted-2:#94A3B8;
+  --royal:#2563EB; --royal-700:#1D4ED8; --beacon:#3B82F6; --beacon-lt:#60A5FA;
+  --night:#0A1533; --night-2:#0E1D45; --night-line:rgba(148,178,255,.14);
+  --on-night:#DCE6FF; --on-night-mut:#8DA2D6;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Manrope",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --container:1240px; --radius:18px; --radius-sm:12px; --radius-pill:999px;
+  --shadow-sm:0 1px 2px rgba(15,23,42,.04),0 2px 8px rgba(15,23,42,.04);
+  --shadow-md:0 8px 30px rgba(15,23,42,.08);
+  --shadow-royal:0 8px 24px rgba(37,99,235,.28);
+  --shadow-beacon:0 10px 30px rgba(59,130,246,.35);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+body{ font-family:var(--body); color:var(--slate); background:var(--white); line-height:1.6;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; }
+svg{ display:block; }
+.container{ width:100%; max-width:var(--container); margin:0 auto; padding-inline:28px; }
+.btn{ display:inline-flex; align-items:center; gap:9px; padding:12px 20px; border-radius:var(--radius-pill);
+  font-weight:700; font-size:14.5px; letter-spacing:-.01em; font-family:var(--body);
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease); cursor:pointer; }
+.btn svg{ width:17px; height:17px; }
+.btn-emergency{ color:#fff; background:linear-gradient(135deg,var(--beacon),var(--royal)); box-shadow:var(--shadow-beacon); }
+.btn-emergency:hover{ transform:translateY(-2px); box-shadow:0 14px 34px rgba(59,130,246,.45); }
+
+/* Ortak bölüm başlığı */
+.sec-eyebrow{ display:inline-flex; align-items:center; gap:9px; font-family:var(--mono);
+  font-size:12px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:var(--royal); }
+.sec-eyebrow .beacon{ position:relative; width:8px; height:8px; border-radius:50%; background:var(--beacon); }
+.sec-eyebrow .beacon::after{ content:""; position:absolute; inset:-5px; border-radius:50%;
+  border:1.5px solid var(--beacon); animation:ripple 2.4s infinite; }
+
+@keyframes ripple{ 0%{transform:scale(.8);opacity:.9;} 100%{transform:scale(1.9);opacity:0;} }
+@keyframes pulse-dot{ 0%{box-shadow:0 0 0 0 rgba(59,130,246,.5);} 70%{box-shadow:0 0 0 8px rgba(59,130,246,0);} 100%{box-shadow:0 0 0 0 rgba(59,130,246,0);} }
+
+/* ============================================================
+   BÖLÜM 1 — HİZMETLER (açık)
+   ============================================================ */
+.services{ padding:104px 0; background:
+  linear-gradient(180deg, var(--white) 0%, var(--ice) 100%); }
+.services-head{ display:grid; grid-template-columns:1.15fr .85fr; gap:40px; align-items:end; margin-bottom:52px; }
+.services-head h2{ font-family:var(--display); font-weight:700; font-size:clamp(32px,4vw,58px);
+  line-height:1.02; letter-spacing:-.035em; color:var(--ink); margin-top:22px; max-width:15ch; }
+.services-head h2 em{ font-style:normal; color:var(--royal); }
+.services-head p{ color:var(--muted); font-size:15.5px; max-width:42ch; }
+
+.svc-grid{ display:grid; grid-template-columns:repeat(6,1fr); gap:20px; }
+.svc-card{ position:relative; overflow:hidden; background:var(--white); border:1px solid var(--line);
+  border-radius:var(--radius); padding:30px; transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease); }
+.svc-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-md); border-color:#C9D8F5; }
+.svc-icon{ width:52px; height:52px; border-radius:14px; display:grid; place-items:center;
+  background:var(--ice-2); color:var(--royal); transition:background .3s var(--ease),color .3s var(--ease); }
+.svc-icon svg{ width:26px; height:26px; }
+.svc-card:hover .svc-icon{ background:var(--royal); color:#fff; }
+.svc-card h3{ font-family:var(--display); font-weight:600; font-size:22px; letter-spacing:-.02em; color:var(--ink); margin-top:22px; }
+.svc-card p{ color:var(--muted); font-size:14.5px; margin-top:10px; }
+.svc-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+.svc-tags span{ font-size:12px; font-weight:600; color:var(--slate); background:var(--ice);
+  border:1px solid var(--line); padding:5px 11px; border-radius:var(--radius-pill); }
+.svc-arrow{ position:absolute; top:30px; right:30px; width:38px; height:38px; border-radius:50%;
+  border:1px solid var(--line); display:grid; place-items:center; color:var(--muted);
+  transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease),transform .3s var(--ease); }
+.svc-arrow svg{ width:16px; height:16px; }
+.svc-card:hover .svc-arrow{ background:var(--royal); border-color:var(--royal); color:#fff; transform:rotate(-45deg); }
+
+/* Büyük kartlar */
+.svc-lg{ grid-column:span 3; padding:36px; }
+.svc-lg .glow{ position:absolute; width:280px; height:280px; right:-90px; bottom:-120px; border-radius:50%;
+  background:radial-gradient(circle, rgba(37,99,235,.12), transparent 70%); pointer-events:none; }
+.svc-lg h3{ font-size:26px; }
+/* Küçük kartlar */
+.svc-sm{ grid-column:span 2; }
+
+/* Koyu Acil kart (night — imza) */
+.svc-dark{ grid-column:span 2; background:var(--night); border-color:transparent; color:var(--on-night); }
+.svc-dark::before{ content:""; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(70% 60% at 80% 0%, rgba(59,130,246,.28), transparent 65%); }
+.svc-dark .svc-icon{ background:rgba(148,178,255,.12); color:var(--beacon-lt); }
+.svc-dark:hover .svc-icon{ background:var(--beacon); color:#fff; }
+.svc-dark h3{ color:#fff; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.svc-dark p{ color:var(--on-night-mut); }
+.svc-dark .badge724{ font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.04em;
+  padding:3px 9px; border-radius:7px; background:rgba(59,130,246,.18); color:var(--beacon-lt); }
+.svc-dark .live{ display:inline-flex; align-items:center; gap:8px; margin-top:18px;
+  font-family:var(--mono); font-size:12.5px; color:var(--on-night); }
+.svc-dark .live .dot{ width:7px; height:7px; border-radius:50%; background:var(--beacon);
+  box-shadow:0 0 0 0 rgba(59,130,246,.6); animation:pulse-dot 2.4s infinite; }
+.svc-dark:hover{ box-shadow:0 16px 40px rgba(10,21,51,.4); }
+.svc-dark .svc-arrow{ border-color:var(--night-line); color:var(--on-night-mut); }
+.svc-dark:hover .svc-arrow{ background:var(--beacon); border-color:var(--beacon); color:#fff; }
+
+/* ============================================================
+   BÖLÜM 2 — NEDEN GECE AÇIĞIZ (koyu)
+   ============================================================ */
+.night-sec{ position:relative; overflow:hidden; background:var(--night); color:var(--on-night); padding:110px 0 100px; }
+.night-sec::before{ content:""; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(46% 50% at 82% 8%, rgba(59,130,246,.22), transparent 62%),
+            radial-gradient(40% 46% at 6% 92%, rgba(37,99,235,.16), transparent 68%); }
+.night-watermark{ position:absolute; top:8%; right:2%; font-family:var(--display); font-weight:800;
+  font-size:min(24vw,320px); line-height:1; color:#fff; opacity:.04; letter-spacing:-.04em;
+  pointer-events:none; user-select:none; }
+.night-sec .container{ position:relative; z-index:1; }
+.night-sec .sec-eyebrow{ color:var(--beacon-lt); }
+
+.night-head{ display:grid; grid-template-columns:1.1fr .9fr; gap:48px; align-items:end; margin-bottom:64px; }
+.night-head h2{ font-family:var(--display); font-weight:700; font-size:clamp(32px,4.2vw,60px);
+  line-height:1.03; letter-spacing:-.035em; color:#fff; margin-top:22px; max-width:15ch; }
+.night-head h2 em{ font-style:normal; color:var(--beacon-lt); }
+.night-head p{ color:var(--on-night-mut); font-size:16px; }
+
+/* Gece protokolü — gerçek sıra (01→04) */
+.protocol{ position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:26px; }
+.protocol::before{ content:""; position:absolute; top:22px; left:8%; right:8%; height:1px;
+  background:linear-gradient(90deg, transparent, var(--night-line) 12%, var(--night-line) 88%, transparent); }
+.step{ position:relative; }
+.step .num{ position:relative; z-index:1; width:46px; height:46px; border-radius:13px; display:grid; place-items:center;
+  background:var(--night-2); border:1px solid var(--night-line); font-family:var(--mono); font-weight:600;
+  font-size:16px; color:var(--beacon-lt); }
+.step.acc .num{ background:linear-gradient(135deg,var(--beacon),var(--royal)); border-color:transparent; color:#fff; box-shadow:var(--shadow-beacon); }
+.step h4{ font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:-.02em; color:#fff; margin-top:22px; }
+.step p{ color:var(--on-night-mut); font-size:14px; margin-top:9px; max-width:24ch; }
+
+/* Cam istatistik kartları */
+.glass-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:70px; }
+.glass-card{ position:relative; padding:30px 32px; border-radius:var(--radius);
+  background:rgba(148,178,255,.06); border:1px solid var(--night-line);
+  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); overflow:hidden; }
+.glass-card::after{ content:""; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, transparent, rgba(148,178,255,.4), transparent); }
+.glass-card b{ display:block; font-family:var(--display); font-weight:700; font-size:clamp(34px,3.4vw,46px);
+  letter-spacing:-.03em; color:#fff; line-height:1; }
+.glass-card span{ display:block; margin-top:12px; color:var(--on-night-mut); font-size:14px; }
+.glass-card.hl b{ color:var(--beacon-lt); }
+
+/* Nabız çizgisi */
+.night-pulse{ margin-top:56px; width:100%; height:34px; opacity:.45; }
+.night-pulse path{ fill:none; stroke:var(--beacon-lt); stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;
+  stroke-dasharray:1400; stroke-dashoffset:1400; animation:ekg 5s linear infinite; }
+@keyframes ekg{ 0%{stroke-dashoffset:1400;} 100%{stroke-dashoffset:-1400;} }
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:980px){
+  .services{ padding:76px 0; }
+  .services-head{ grid-template-columns:1fr; gap:18px; align-items:start; margin-bottom:38px; }
+  .svc-grid{ grid-template-columns:repeat(2,1fr); }
+  .svc-lg{ grid-column:span 2; }
+  .svc-sm,.svc-dark{ grid-column:span 1; }
+  .night-sec{ padding:80px 0; }
+  .night-head{ grid-template-columns:1fr; gap:20px; align-items:start; margin-bottom:44px; }
+  .protocol{ grid-template-columns:repeat(2,1fr); gap:28px; }
+  .protocol::before{ display:none; }
+  .glass-stats{ grid-template-columns:1fr; }
+}
+@media (max-width:560px){
+  .container{ padding-inline:20px; }
+  .svc-grid{ grid-template-columns:1fr; }
+  .svc-lg,.svc-sm,.svc-dark{ grid-column:span 1; }
+  .protocol{ grid-template-columns:1fr; }
+}
+@media (prefers-reduced-motion:reduce){ *,*::before,*::after{ animation:none !important; transition-duration:.01ms !important; } }
+:focus-visible{ outline:2.5px solid var(--royal); outline-offset:3px; border-radius:6px; }
+.night-sec :focus-visible{ outline-color:var(--beacon-lt); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ BÖLÜM 1 — HİZMETLER ═══════════════ -->
+<section class="services">
+  <div class="container">
+    <div class="services-head">
+      <div>
+        <span class="sec-eyebrow"><span class="beacon"></span> Hizmetler</span>
+        <h2>Gülüşünüz için her şey, <em>tek çatı altında.</em></h2>
+      </div>
+      <p>Rutin kontrolden implant cerrahisine, estetik dokunuşlardan gece yarısı acil müdahaleye kadar tüm tedavileriniz aynı ekiple, aynı yerde.</p>
+    </div>
+
+    <div class="svc-grid">
+
+      <!-- Büyük: Diş Beyazlatma -->
+      <article class="svc-card svc-lg">
+        <span class="glow"></span>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+        </div>
+        <a href="#" class="svc-arrow" aria-label="Diş beyazlatma detay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        <h3>Diş Beyazlatma</h3>
+        <p>Klinik ortamında güvenli beyazlatma teknolojileriyle daha parlak bir gülüş. Lazer destekli uygulamalarla hızlı ve kalıcı sonuçlar.</p>
+        <div class="svc-tags"><span>Lazer beyazlatma</span><span>Ev tipi</span><span>Ofis tipi</span></div>
+      </article>
+
+      <!-- Büyük: Estetik -->
+      <article class="svc-card svc-lg">
+        <span class="glow"></span>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-3 0-5 2-5 5 0 2 .8 3.5 1.5 5.5C9 15 9.5 18 10.2 20c.3.8 1.3.8 1.4-.3l.4-3c.1-.9 1.1-.9 1.2 0l.4 3c.1 1.1 1.1 1.1 1.4.3.7-2 1.2-5 1.7-6.5.7-2 1.5-3.5 1.5-5.5 0-3-2-5-5-5Z"/><path d="M19 4l.6 1.4L21 6l-1.4.6L19 8l-.6-1.4L17 6l1.4-.6Z"/></svg>
+        </div>
+        <a href="#" class="svc-arrow" aria-label="Estetik diş hekimliği detay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        <h3>Estetik Diş Hekimliği</h3>
+        <p>Zirkonyum, lamina ve bonding ile ölçülü ve doğal bir gülüş tasarımı. Sizin yüzünüze özel, abartısız sonuçlar.</p>
+        <div class="svc-tags"><span>Kaplama</span><span>Bonding</span><span>Beyazlatma</span></div>
+      </article>
+
+      <!-- Küçük: Ortodonti -->
+      <article class="svc-card svc-sm">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h16M4 15h16"/><path d="M8 9v6M12 9v6M16 9v6"/><circle cx="8" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="16" cy="12" r="1.3"/></svg>
+        </div>
+        <a href="#" class="svc-arrow" aria-label="Ortodonti detay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        <h3>Ortodonti</h3>
+        <p>Şeffaf plak ve tel tedavileriyle düzgün, dengeli bir diş dizilimi.</p>
+      </article>
+
+      <!-- Küçük: Kanal Tedavisi -->
+      <article class="svc-card svc-sm">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-2.6 0-4.2 1.7-4.2 4.2 0 1.5.5 2.6 1.1 4.3.7 1.8 1.1 4.6 1.7 6.8.3 1 1.3 1 1.4-.2M12 2c2.6 0 4.2 1.7 4.2 4.2 0 1.5-.5 2.6-1.1 4.3-.4 1-.7 2.4-1 3.8"/><path d="M12 6v13"/></svg>
+        </div>
+        <a href="#" class="svc-arrow" aria-label="Kanal tedavisi detay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        <h3>Kanal Tedavisi</h3>
+        <p>Ağrısız, çoğunlukla tek seansta tamamlanan modern endodonti.</p>
+      </article>
+
+      <!-- Koyu: Gece Acil Diş (imza) -->
+      <article class="svc-card svc-dark">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 15.5c-2.5.4-5-.3-7-2.1-2-1.9-2.8-4.4-2.4-6.9.1-.6-.6-1-1.1-.7A7.5 7.5 0 0 0 18 19a7.4 7.4 0 0 0 2.8-2.4c.3-.5-.1-1.2-.8-1.1Z"/></svg>
+        </div>
+        <a href="#" class="svc-arrow" aria-label="Gece acil diş detay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        <h3>Gece Acil Diş <span class="badge724">7/24</span></h3>
+        <p>Gece başlayan ağrıya, kırılan dişe veya düşen dolguya randevusuz, anında müdahale.</p>
+        <span class="live"><span class="dot"></span> Şu an açık</span>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BÖLÜM 2 — NEDEN GECE AÇIĞIZ ═══════════════ -->
+<section class="night-sec">
+  <div class="night-watermark" aria-hidden="true">03:00</div>
+  <div class="container">
+
+    <div class="night-head">
+      <div>
+        <span class="sec-eyebrow"><span class="beacon"></span> Neden Gece Açığız?</span>
+        <h2>Çünkü diş ağrısı <em>mesai saati tanımaz.</em></h2>
+      </div>
+      <p>Çoğu klinik 18:00'de kapanır; ağrı ise çoğu zaman gece başlar. Biz de tam bu yüzden ışıkları hiç kapatmıyoruz — çünkü sabahı beklemek, küçük bir sorunu büyük bir probleme çevirebilir.</p>
+    </div>
+
+    <!-- Gece Protokolü -->
+    <div class="protocol">
+      <div class="step">
+        <div class="num">01</div>
+        <h4>Ararsınız</h4>
+        <p>7/24 açık hattımıza tek dokunuş; doğrudan bir diş hekimine bağlanırsınız.</p>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <h4>Yönlendiririz</h4>
+        <p>Gelene kadar ne yapmanız gerektiğini anlatır, yol tarifini iletiriz.</p>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <h4>Karşılarız</h4>
+        <p>Randevusuz gelin; kapıda sizi bekleyen hazır bir ekip olur.</p>
+      </div>
+      <div class="step acc">
+        <div class="num">04</div>
+        <h4>Rahatlarsınız</h4>
+        <p>Ağrınıza aynı gece müdahale edilir, tedavi planınız çıkarılır.</p>
+      </div>
+    </div>
+
+    <!-- Cam istatistikler -->
+    <div class="glass-stats">
+      <div class="glass-card"><b>~12 dk</b><span>Aramadan sonra ortalama kapıda karşılama süresi</span></div>
+      <div class="glass-card hl"><b>3.400+</b><span>Bugüne kadar ağırladığımız gece acil vakası</span></div>
+      <div class="glass-card"><b>365 gün</b><span>Yılın her günü, kesintisiz açık</span></div>
+    </div>
+
+    <svg class="night-pulse" viewBox="0 0 1200 34" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 17 L380 17 L398 17 L410 4 L424 30 L438 17 L470 17 L640 17 L658 17 L670 4 L684 30 L698 17 L730 17 L1000 17 L1018 17 L1030 4 L1044 30 L1058 17 L1090 17 L1200 17"/>
+    </svg>
+
+  </div>
+</section>
+
+</body>
+</html>

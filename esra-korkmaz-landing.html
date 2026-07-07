@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esra Korkmaz Diş Muayenehanesi — 7/24 Gece Açık Diş Kliniği</title>
+<meta name="description" content="Ankara'nın gece açık diş muayenehanesi. 7/24 acil diş müdahalesi. Şehir uyurken gülüşünüz güvende.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   ESRA KORKMAZ DİŞ MUAYENEHANESİ — Design Tokens
+   ============================================================ */
+:root{
+  --white:#FFFFFF; --ice:#F8FAFC; --ice-2:#EFF4FB; --line:#E5EAF2;
+  --ink:#0F172A; --slate:#1E293B; --muted:#64748B; --muted-2:#94A3B8;
+  --royal:#2563EB; --royal-700:#1D4ED8; --beacon:#3B82F6; --beacon-lt:#60A5FA;
+  --night:#0A1533; --night-2:#0E1D45; --night-line:rgba(148,178,255,.14);
+  --on-night:#DCE6FF; --on-night-mut:#8DA2D6;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Manrope",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --container:1240px; --radius:18px; --radius-sm:12px; --radius-pill:999px;
+  --shadow-sm:0 1px 2px rgba(15,23,42,.04),0 2px 8px rgba(15,23,42,.04);
+  --shadow-md:0 8px 30px rgba(15,23,42,.08);
+  --shadow-royal:0 8px 24px rgba(37,99,235,.28);
+  --shadow-beacon:0 10px 30px rgba(59,130,246,.35);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+/* ============================================================ RESET */
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body{ font-family:var(--body); color:var(--slate); background:var(--white);
+  line-height:1.6; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; overflow-x:hidden; }
+a{ color:inherit; text-decoration:none; }
+button{ font-family:inherit; cursor:pointer; border:none; background:none; }
+img,svg{ display:block; max-width:100%; }
+ul{ list-style:none; }
+.container{ width:100%; max-width:var(--container); margin:0 auto; padding-inline:28px; }
+
+/* Ortak buton */
+.btn{ display:inline-flex; align-items:center; gap:9px; padding:12px 20px;
+  border-radius:var(--radius-pill); font-weight:700; font-size:14.5px; letter-spacing:-.01em;
+  transition:transform .2s var(--ease), box-shadow .2s var(--ease), background .2s var(--ease); }
+.btn svg{ width:17px; height:17px; }
+.btn-lg{ padding:15px 26px; font-size:15.5px; }
+.btn-primary{ color:#fff; background:linear-gradient(135deg,var(--royal),var(--royal-700)); box-shadow:var(--shadow-royal); }
+.btn-primary:hover{ transform:translateY(-2px); box-shadow:0 14px 34px rgba(37,99,235,.4); }
+.btn-emergency{ color:#fff; background:linear-gradient(135deg,var(--beacon),var(--royal)); box-shadow:var(--shadow-beacon); }
+.btn-emergency:hover{ transform:translateY(-2px); box-shadow:0 14px 34px rgba(59,130,246,.45); }
+.btn:active{ transform:translateY(0); }
+
+/* ============================================================ HEADER */
+.site-header{ position:fixed; inset:0 0 auto 0; z-index:100; padding-top:18px; transition:padding-top .4s var(--ease); }
+.header-inner{ max-width:var(--container); margin:0 auto; padding:14px 20px 14px 24px;
+  display:flex; align-items:center; justify-content:space-between; gap:22px; border-radius:var(--radius-pill); border:1px solid transparent;
+  transition:background .4s var(--ease),border-color .4s var(--ease),box-shadow .4s var(--ease),padding .4s var(--ease),margin .4s var(--ease); }
+.site-header.scrolled{ padding-top:12px; }
+.site-header.scrolled .header-inner{ background:rgba(255,255,255,.72);
+  -webkit-backdrop-filter:blur(18px) saturate(180%); backdrop-filter:blur(18px) saturate(180%);
+  border-color:var(--line); box-shadow:var(--shadow-md); margin-inline:clamp(0px,4vw,40px); padding-block:11px; }
+
+.brand{ display:flex; align-items:center; gap:12px; flex-shrink:0; }
+.header-logo{ height:64px; width:auto; display:block; transition:height .4s var(--ease); }
+.site-header.scrolled .header-logo{ height:44px; }
+.brand-mark{ width:42px; height:42px; border-radius:13px; display:grid; place-items:center;
+  background:linear-gradient(135deg,var(--royal),var(--royal-700)); box-shadow:var(--shadow-royal); flex-shrink:0; }
+.brand-mark svg{ width:22px; height:22px; }
+.brand-name{ display:flex; flex-direction:column; line-height:1; font-family:var(--display); }
+.brand-name b{ font-weight:700; font-size:17px; letter-spacing:-.02em; color:var(--ink); }
+.brand-name small{ font-family:var(--body); font-weight:500; font-size:10.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--muted-2); margin-top:3px; }
+
+.nav{ display:flex; align-items:center; gap:4px; margin-inline:auto; }
+.nav a{ position:relative; padding:9px 15px; font-size:14.5px; font-weight:600; color:var(--slate);
+  border-radius:var(--radius-pill); transition:color .2s var(--ease),background .2s var(--ease); }
+.nav a:hover{ color:var(--ink); background:var(--ice); }
+.nav a.is-emergency{ color:var(--royal); }
+.nav a.is-emergency::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--beacon);
+  display:inline-block; margin-right:7px; vertical-align:middle;
+  box-shadow:0 0 0 0 rgba(59,130,246,.6); animation:pulse-dot 2.4s infinite; }
+
+.header-actions{ display:flex; align-items:center; gap:14px; flex-shrink:0; }
+.live-status{ display:flex; align-items:center; gap:9px; padding:8px 14px; border:1px solid var(--line);
+  border-radius:var(--radius-pill); background:var(--white); font-size:12.5px; font-weight:600; color:var(--slate); white-space:nowrap; }
+.live-status .beacon{ position:relative; width:8px; height:8px; border-radius:50%; background:var(--beacon); flex-shrink:0; }
+.live-status .beacon::after{ content:""; position:absolute; inset:-4px; border-radius:50%; border:1.5px solid var(--beacon); animation:ripple 2.4s infinite; }
+.live-status .clock{ font-family:var(--mono); font-weight:500; letter-spacing:-.02em; color:var(--ink); font-variant-numeric:tabular-nums; }
+.live-status .sep{ color:var(--muted-2); }
+
+.menu-toggle{ display:none; width:46px; height:46px; border-radius:13px; border:1px solid var(--line);
+  background:var(--white); place-items:center; flex-shrink:0; padding:12px; }
+.menu-toggle span{ display:block; height:2px; border-radius:2px; background:var(--ink);
+  transition:transform .3s var(--ease),opacity .2s,width .3s var(--ease); }
+.menu-toggle span:nth-child(1){ width:19px; }
+.menu-toggle span:nth-child(2){ width:12px; margin-inline-start:auto; margin-top:5px; }
+.menu-toggle span:nth-child(3){ width:16px; margin-inline-start:auto; margin-top:5px; }
+body.menu-open .menu-toggle span{ width:19px !important; }
+body.menu-open .menu-toggle span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+body.menu-open .menu-toggle span:nth-child(2){ opacity:0; }
+body.menu-open .menu-toggle span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+.mobile-menu{ position:fixed; inset:0; z-index:90; background:var(--night); padding:120px 28px 40px;
+  display:flex; flex-direction:column; opacity:0; visibility:hidden; transform:translateY(-12px);
+  transition:opacity .35s var(--ease),transform .35s var(--ease),visibility .35s; }
+.mobile-menu::before{ content:""; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(60% 40% at 80% 0%,rgba(59,130,246,.25),transparent 70%),
+            radial-gradient(50% 40% at 10% 100%,rgba(37,99,235,.18),transparent 70%); }
+body.menu-open .mobile-menu{ opacity:1; visibility:visible; transform:none; }
+.mobile-menu a{ position:relative; font-family:var(--display); font-size:30px; font-weight:600;
+  color:var(--on-night); padding:14px 0; border-bottom:1px solid var(--night-line); letter-spacing:-.02em; }
+.mobile-menu a.is-emergency{ color:var(--beacon-lt); }
+.mobile-menu .mm-cta{ margin-top:32px; }
+.mobile-menu .btn-emergency{ width:100%; justify-content:center; font-size:16px; padding:16px; }
+
+/* ============================================================ HERO */
+.hero{ position:relative; overflow:hidden; padding:150px 0 78px;
+  background:radial-gradient(125% 95% at 74% 6%, #E8F0FE 0%, var(--ice) 32%, var(--white) 66%); }
+.hero-inner{ position:relative; max-width:var(--container); margin:0 auto; padding-inline:28px; }
+
+/* Filigran: 7/24 (gece açık teması) */
+.hero-watermark{ position:absolute; top:34%; left:56%; transform:translate(-50%,-50%);
+  font-family:var(--display); font-weight:800; font-size:min(40vw,600px); line-height:1;
+  color:var(--royal); opacity:.045; letter-spacing:-.05em; z-index:0; pointer-events:none; user-select:none; white-space:nowrap; }
+
+.hero-grid{ position:relative; z-index:2; display:grid; grid-template-columns:1.02fr .98fr;
+  align-items:center; gap:12px; min-height:70vh; }
+
+.hero-eyebrow{ display:inline-flex; align-items:center; gap:9px; padding:8px 16px; margin-bottom:30px;
+  border:1px solid var(--line); border-radius:var(--radius-pill); background:rgba(255,255,255,.7);
+  -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); box-shadow:var(--shadow-sm);
+  font-size:13px; font-weight:600; color:var(--slate); }
+.hero-eyebrow .beacon{ position:relative; width:8px; height:8px; border-radius:50%; background:var(--beacon); }
+.hero-eyebrow .beacon::after{ content:""; position:absolute; inset:-4px; border-radius:50%; border:1.5px solid var(--beacon); animation:ripple 2.4s infinite; }
+.hero-eyebrow b{ color:var(--royal); font-weight:700; }
+
+.hero h1{ font-family:var(--display); font-weight:700; font-size:clamp(42px,5.8vw,90px);
+  line-height:.98; letter-spacing:-.045em; color:var(--ink); }
+.hero h1 span{ display:block; }
+.hero h1 .l2{ margin-left:.86em; }
+.hero h1 .accent{ color:var(--royal); }
+.hero h1 .accent::after{ content:""; display:inline-block; width:.5em; height:.5em; margin-left:.14em;
+  border-radius:50%; background:var(--beacon); vertical-align:.06em; box-shadow:0 0 18px rgba(59,130,246,.7); }
+
+.hero-sub{ margin-top:26px; max-width:44ch; font-size:clamp(15.5px,1.4vw,18px); color:var(--muted); }
+.hero-sub b{ color:var(--slate); font-weight:600; }
+
+.hero-cta{ display:flex; gap:13px; flex-wrap:wrap; margin-top:34px; }
+
+.hero-stats{ display:flex; flex-wrap:wrap; margin-top:52px; padding-top:26px; border-top:1px solid var(--line); }
+.hero-stats .stat{ padding-right:16px; margin-right:16px; border-right:1px solid var(--line); }
+.hero-stats .stat:last-child{ padding-right:0; margin-right:0; border-right:none; }
+.hero-stats .stat b{ display:block; font-family:var(--display); font-weight:700; font-size:clamp(26px,2.6vw,34px);
+  letter-spacing:-.03em; color:var(--ink); line-height:1; }
+.hero-stats .stat span{ display:flex; align-items:center; gap:6px; margin-top:8px; font-size:12.5px; font-weight:500; color:var(--muted); }
+.hero-stats .stat.is-night b{ color:var(--royal); }
+.hero-stats .stat.is-night span::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--beacon);
+  box-shadow:0 0 0 0 rgba(59,130,246,.6); animation:pulse-dot 2.4s infinite; }
+
+/* Görsel / cam diş */
+.hero-visual{ position:relative; justify-self:center; width:min(640px,54vw); }
+.hero-visual svg{ width:100%; height:auto; overflow:visible; }
+.tooth-float{ transform-origin:center; animation:float 7.5s ease-in-out infinite; }
+.orbit-label{ font-family:var(--body); font-weight:600; font-size:15px; fill:var(--ink); }
+.orbit-cap{ font-family:var(--body); font-weight:500; font-size:11.5px; fill:var(--muted); }
+.orbit-label.em{ fill:var(--royal); }
+.node-pulse{ transform-origin:center; animation:node-ring 2.4s ease-out infinite; }
+.spark{ animation:twinkle 3.4s ease-in-out infinite; transform-origin:center; }
+.spark.s2{ animation-delay:.9s; } .spark.s3{ animation-delay:1.7s; } .spark.s4{ animation-delay:2.4s; }
+
+/* Scroll ipucu */
+.hero-scroll{ position:relative; z-index:2; display:flex; align-items:center; gap:11px; margin-top:8px;
+  font-family:var(--mono); font-size:12px; letter-spacing:.06em; color:var(--muted-2); }
+.hero-scroll .bar{ width:34px; height:1.5px; background:var(--line); position:relative; overflow:hidden; border-radius:2px; }
+.hero-scroll .bar::after{ content:""; position:absolute; inset:0; width:12px; background:var(--royal); animation:scroll-run 2.2s var(--ease) infinite; }
+
+/* ============================================================ FOOTER */
+.site-footer{ position:relative; background:var(--night); color:var(--on-night); overflow:hidden; }
+.site-footer::before{ content:""; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(50% 55% at 85% 0%,rgba(59,130,246,.20),transparent 65%),
+            radial-gradient(45% 50% at 5% 20%,rgba(37,99,235,.14),transparent 70%); }
+.site-footer .container{ position:relative; z-index:1; }
+
+.emergency-band{ padding:74px 0 66px; border-bottom:1px solid var(--night-line); position:relative; }
+.eb-eyebrow{ display:inline-flex; align-items:center; gap:10px; font-family:var(--mono); font-size:12px; font-weight:500;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--beacon-lt); margin-bottom:22px; }
+.eb-eyebrow .beacon{ position:relative; width:8px; height:8px; border-radius:50%; background:var(--beacon); }
+.eb-eyebrow .beacon::after{ content:""; position:absolute; inset:-5px; border-radius:50%; border:1.5px solid var(--beacon); animation:ripple 2.4s infinite; }
+.eb-grid{ display:grid; grid-template-columns:1.4fr .9fr; gap:48px; align-items:end; }
+.eb-grid h2{ font-family:var(--display); font-weight:700; font-size:clamp(30px,3.6vw,50px); line-height:1.04;
+  letter-spacing:-.03em; color:#fff; max-width:16ch; }
+.eb-grid h2 em{ font-style:normal; color:var(--beacon-lt); }
+.eb-grid p{ margin-top:18px; color:var(--on-night-mut); max-width:44ch; font-size:15.5px; }
+.eb-cta{ display:flex; flex-direction:column; gap:16px; }
+.phone-big{ display:flex; flex-direction:column; gap:4px; padding:22px 24px; border-radius:var(--radius);
+  background:linear-gradient(135deg,rgba(59,130,246,.16),rgba(37,99,235,.10)); border:1px solid var(--night-line); }
+.phone-big span{ font-size:11.5px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--on-night-mut); }
+.phone-big a{ font-family:var(--mono); font-weight:600; font-size:clamp(24px,2.6vw,32px); letter-spacing:-.02em; color:#fff; transition:color .2s var(--ease); }
+.phone-big a:hover{ color:var(--beacon-lt); }
+.eb-buttons{ display:flex; gap:12px; flex-wrap:wrap; }
+.btn-ghost{ display:inline-flex; align-items:center; gap:9px; padding:13px 22px; border-radius:var(--radius-pill);
+  border:1px solid var(--night-line); color:var(--on-night); font-weight:600; font-size:14.5px;
+  transition:background .2s var(--ease),border-color .2s var(--ease); }
+.btn-ghost svg{ width:17px; height:17px; }
+.btn-ghost:hover{ background:rgba(148,178,255,.08); border-color:rgba(148,178,255,.3); }
+.eb-buttons .btn-emergency{ padding:13px 22px; }
+.pulse-line{ margin-top:40px; width:100%; height:40px; opacity:.5; }
+.pulse-line path{ fill:none; stroke:var(--beacon-lt); stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;
+  stroke-dasharray:1400; stroke-dashoffset:1400; animation:ekg 5s linear infinite; }
+
+.footer-cols{ padding:64px 0 52px; display:grid; grid-template-columns:1.6fr 1fr 1fr 1.3fr; gap:48px; }
+.fc-brand .brand-mark{ box-shadow:0 8px 24px rgba(37,99,235,.4); }
+.fc-brand .brand-name b{ color:#fff; }
+.fc-brand .brand-name small{ color:var(--on-night-mut); }
+.fc-brand p{ margin:22px 0 26px; color:var(--on-night-mut); font-size:14.5px; max-width:34ch; }
+.socials{ display:flex; gap:10px; }
+.socials a{ width:42px; height:42px; border-radius:12px; display:grid; place-items:center;
+  border:1px solid var(--night-line); color:var(--on-night); transition:background .2s var(--ease),transform .2s var(--ease),border-color .2s; }
+.socials a svg{ width:18px; height:18px; }
+.socials a:hover{ background:rgba(148,178,255,.1); border-color:rgba(148,178,255,.3); transform:translateY(-2px); }
+.fc-title{ font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--on-night-mut); margin-bottom:20px; }
+.fc-links li+li{ margin-top:12px; }
+.fc-links a{ color:var(--on-night); font-size:14.5px; font-weight:500; transition:color .2s var(--ease); display:inline-flex; align-items:center; gap:8px; }
+.fc-links a:hover{ color:var(--beacon-lt); }
+.fc-links a .tag{ font-family:var(--mono); font-size:10px; font-weight:500; padding:2px 7px; border-radius:6px; letter-spacing:.04em; background:rgba(59,130,246,.16); color:var(--beacon-lt); }
+.hours li{ display:flex; align-items:center; justify-content:space-between; padding:9px 0; border-bottom:1px solid var(--night-line); font-size:14px; }
+.hours li:last-child{ border-bottom:none; }
+.hours .day{ color:var(--on-night-mut); }
+.hours .open{ display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:12.5px; font-weight:500; color:#fff; }
+.hours .open .dot{ width:6px; height:6px; border-radius:50%; background:#34D399; }
+.contact-list{ margin-top:22px; }
+.contact-list li{ display:flex; gap:11px; align-items:flex-start; color:var(--on-night-mut); font-size:14px; margin-bottom:12px; }
+.contact-list svg{ width:17px; height:17px; margin-top:2px; color:var(--beacon-lt); flex-shrink:0; }
+.contact-list a{ color:var(--on-night); }
+.contact-list a:hover{ color:var(--beacon-lt); }
+.footer-bottom{ padding:26px 0 34px; border-top:1px solid var(--night-line); display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+.footer-bottom p{ color:var(--on-night-mut); font-size:13px; }
+.footer-bottom .legal{ display:flex; gap:24px; flex-wrap:wrap; }
+.footer-bottom .legal a{ color:var(--on-night-mut); font-size:13px; transition:color .2s; }
+.footer-bottom .legal a:hover{ color:var(--on-night); }
+.footer-bottom .credit{ font-family:var(--mono); font-size:11.5px; color:var(--on-night-mut); }
+.footer-bottom .credit b{ color:var(--on-night); font-weight:500; }
+
+/* ============================================================ ANİMASYON */
+@keyframes pulse-dot{ 0%{box-shadow:0 0 0 0 rgba(59,130,246,.5);} 70%{box-shadow:0 0 0 8px rgba(59,130,246,0);} 100%{box-shadow:0 0 0 0 rgba(59,130,246,0);} }
+@keyframes ripple{ 0%{transform:scale(.8);opacity:.9;} 100%{transform:scale(1.9);opacity:0;} }
+@keyframes ekg{ 0%{stroke-dashoffset:1400;} 100%{stroke-dashoffset:-1400;} }
+@keyframes float{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-16px);} }
+@keyframes twinkle{ 0%,100%{opacity:.2;transform:scale(.7);} 50%{opacity:1;transform:scale(1);} }
+@keyframes node-ring{ 0%{transform:scale(.6);opacity:.9;} 100%{transform:scale(2.2);opacity:0;} }
+@keyframes scroll-run{ 0%{transform:translateX(-14px);} 100%{transform:translateX(34px);} }
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:1080px){
+  .nav{ display:none; }
+  .footer-cols{ grid-template-columns:1fr 1fr; gap:40px; }
+  .fc-brand{ grid-column:1 / -1; }
+}
+@media (max-width:980px){
+  .hero{ padding-top:128px; }
+  .hero-grid{ grid-template-columns:1fr; gap:20px; min-height:0; text-align:center; }
+  .hero-eyebrow{ margin-bottom:22px; }
+  .hero h1 .l2{ margin-left:0; }
+  .hero-sub{ margin-inline:auto; }
+  .hero-cta,.hero-stats{ justify-content:center; }
+  .hero-stats{ gap:8px 0; }
+  .hero-visual{ order:-1; width:min(400px,78vw); margin-bottom:8px; }
+  .hero-watermark{ font-size:70vw; top:22%; }
+  .hero-scroll{ justify-content:center; }
+}
+@media (max-width:900px){
+  .live-status{ display:none; }
+  .menu-toggle{ display:grid; }
+  .eb-grid{ grid-template-columns:1fr; gap:34px; align-items:start; }
+}
+@media (max-width:620px){
+  .container{ padding-inline:20px; }
+  .hero-inner{ padding-inline:20px; }
+  .site-header{ padding-top:10px; }
+  .site-header.scrolled{ padding-top:8px; }
+  .site-header.scrolled .header-inner{ width:calc(100% - 16px); padding-block:8px; padding-inline:14px 10px; }
+  .header-inner{ padding:10px 14px; gap:12px; }
+  .header-logo{ height:50px !important; }
+  .site-header.scrolled .header-logo{ height:38px !important; }
+  .header-actions{ gap:8px; }
+  .header-actions .btn-emergency span{ display:none; }
+  .header-actions .btn-emergency{ padding:10px; }
+  .header-actions .btn-emergency svg{ width:16px; height:16px; }
+  .menu-toggle{ width:38px; height:38px; border-radius:10px; padding:10px; }
+  .menu-toggle span:nth-child(1){ width:16px; }
+  .menu-toggle span:nth-child(2){ width:10px; margin-inline-start:auto; margin-top:4px; }
+  .menu-toggle span:nth-child(3){ width:13px; margin-inline-start:auto; margin-top:4px; }
+  body.menu-open .menu-toggle span{ width:16px !important; }
+  body.menu-open .menu-toggle span:nth-child(1){ transform:translateY(6px) rotate(45deg); }
+  body.menu-open .menu-toggle span:nth-child(3){ transform:translateY(-6px) rotate(-45deg); }
+  .footer-cols{ grid-template-columns:1fr; gap:36px; }
+  .footer-bottom{ flex-direction:column; align-items:flex-start; }
+  .brand-name small{ display:none; }
+  .hero-stats .stat{ padding-right:12px; margin-right:12px; }
+  .floating-whatsapp{ width:48px; height:48px; bottom:20px; right:20px; box-shadow:0 6px 18px rgba(37,211,102,0.35); }
+  .floating-whatsapp svg{ width:24px; height:24px; }
+  .whatsapp-ripple{ inset:-4px; }
+}
+
+/* ============================================================ A11Y */
+:focus-visible{ outline:2.5px solid var(--royal); outline-offset:3px; border-radius:6px; }
+.site-footer :focus-visible{ outline-color:var(--beacon-lt); }
+/* Floating WhatsApp Button */
+.floating-whatsapp {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+  z-index: 99;
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.floating-whatsapp svg {
+  width: 28px;
+  height: 28px;
+}
+.floating-whatsapp:hover {
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
+  color: #fff;
+}
+.floating-whatsapp:active {
+  transform: scale(1) translateY(0);
+}
+.whatsapp-ripple {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid #25D366;
+  animation: whatsapp-ripple-effect 2s infinite;
+  opacity: 0;
+  pointer-events: none;
+}
+@keyframes whatsapp-ripple-effect {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+@media (prefers-reduced-motion:reduce){ *,*::before,*::after{ animation:none !important; transition-duration:.01ms !important; } html{ scroll-behavior:auto; } }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header class="site-header" id="header">
+  <div class="header-inner">
+    <a href="./index.html" class="brand" aria-label="Esra Korkmaz Diş Muayenehanesi ana sayfa">
+      <img src="Diş Muayenehanesi.png" alt="Esra Korkmaz Diş Muayenehanesi Logo" class="header-logo" />
+    </a>
+    <nav class="nav" aria-label="Ana menü">
+      <a href="./index.html#services">Hizmetler</a>
+      <a href="./index.html#why-us" class="is-emergency">Acil Müdahale</a>
+      <a href="./index.html#clinic">Kliniğimiz</a>
+      <a href="./index.html#about">Hakkımızda</a>
+      <a href="./index.html#contact">İletişim</a>
+    </nav>
+    <div class="header-actions">
+      <a href="tel:+905435934766" class="btn btn-emergency">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+        <span>Acil Ara</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menüyü aç" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="./index.html#services">Hizmetler</a>
+  <a href="./index.html#why-us" class="is-emergency">Acil Müdahale</a>
+  <a href="./index.html#clinic">Kliniğimiz</a>
+  <a href="./index.html#about">Hakkımızda</a>
+  <a href="./index.html#contact">İletişim</a>
+  <div class="mm-cta">
+    <a href="tel:+905435934766" class="btn btn-emergency"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg><span>7/24 Acil Hattı Ara</span></a>
+  </div>
+</div>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+  <div class="hero-watermark" aria-hidden="true">7/24</div>
+  <div class="hero-inner">
+    <div class="hero-grid">
+
+      <!-- Metin -->
+      <div class="hero-content">
+        <span class="hero-eyebrow"><span class="beacon"></span> Ankara · <b>7/24 gece açık diş kliniği</b></span>
+        <h1>
+          <span>Şehir uyurken</span>
+          <span class="l2">gülüşünüz</span>
+          <span class="accent">güvende.</span>
+        </h1>
+        <p class="hero-sub">Estetik diş hekimliğinden gece acil müdahaleye — <b>hiç kapanmayan</b> kliniğimizde ağrınız sabahı beklemek zorunda değil. Randevusuz gelin, her saat buradayız.</p>
+        <div class="hero-cta">
+          <a href="./index.html#contact" class="btn btn-primary btn-lg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Randevu Al
+          </a>
+          <a href="tel:+905435934766" class="btn btn-emergency btn-lg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+            Acil Ara
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b>12+</b><span>Yıllık deneyim</span></div>
+          <div class="stat"><b>20.000+</b><span>Tamamlanan tedavi</span></div>
+          <div class="stat is-night"><b>3.400+</b><span>Gece acil vakası</span></div>
+          <div class="stat"><b>%98</b><span>Hasta memnuniyeti</span></div>
+        </div>
+      </div>
+
+      <!-- Cam diş görseli -->
+      <div class="hero-visual">
+        <svg viewBox="0 0 560 540" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Parlak cam diş modeli ve hizmet yörüngesi">
+          <defs>
+            <linearGradient id="g-body" x1="0" y1="0" x2="0.35" y2="1">
+              <stop offset="0" stop-color="#FFFFFF"/>
+              <stop offset="0.42" stop-color="#ECF3FF"/>
+              <stop offset="0.78" stop-color="#CFE0FB"/>
+              <stop offset="1" stop-color="#B4CEF6"/>
+            </linearGradient>
+            <radialGradient id="g-core" cx="0.42" cy="0.36" r="0.6">
+              <stop offset="0" stop-color="#BFDBFE" stop-opacity="0.95"/>
+              <stop offset="0.5" stop-color="#60A5FA" stop-opacity="0.35"/>
+              <stop offset="1" stop-color="#60A5FA" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="g-shadow" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0" stop-color="#1D4ED8" stop-opacity="0.28"/>
+              <stop offset="1" stop-color="#1D4ED8" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="g-ring" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#93C5FD" stop-opacity="0"/>
+              <stop offset="0.35" stop-color="#3B82F6" stop-opacity="0.9"/>
+              <stop offset="0.7" stop-color="#2563EB" stop-opacity="0.9"/>
+              <stop offset="1" stop-color="#93C5FD" stop-opacity="0"/>
+            </linearGradient>
+            <clipPath id="toothClip"><path d="M280 84 C198 84 138 136 138 216 C138 276 154 326 176 384 C192 428 202 486 226 486 C246 486 252 460 258 428 C263 400 270 388 280 388 C290 388 297 400 302 428 C308 460 314 486 334 486 C358 486 368 428 384 384 C406 326 422 276 422 216 C422 136 362 84 280 84 Z"/></clipPath>
+            <filter id="f-halo" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="26"/></filter>
+            <filter id="f-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="14"/></filter>
+            <filter id="f-hi" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6"/></filter>
+          </defs>
+
+          <!-- yer gölgesi -->
+          <ellipse cx="280" cy="504" rx="150" ry="24" fill="url(#g-shadow)"/>
+
+          <!-- yörünge (arka) -->
+          <ellipse cx="280" cy="260" rx="215" ry="80" transform="rotate(-15 280 260)" stroke="url(#g-ring)" stroke-width="2.2" opacity="0.5"/>
+
+          <g class="tooth-float">
+            <image href="diş.png" x="138" y="84" width="284" height="402" />
+          </g>
+
+          <!-- yörünge (ön) -->
+          <path d="M 74 293 A 215 80 -15 0 0 486 231" stroke="url(#g-ring)" stroke-width="2.6" opacity="0.85" fill="none"/>
+
+          <!-- sparkles -->
+          <g fill="#60A5FA">
+            <path class="spark"    d="M470 120 Q472 126 478 128 Q472 130 470 136 Q468 130 462 128 Q468 126 470 120 Z"/>
+            <path class="spark s2" d="M108 180 Q110 185 115 187 Q110 189 108 194 Q106 189 101 187 Q106 185 108 180 Z" fill="#93C5FD"/>
+            <path class="spark s3" d="M430 400 Q432 405 437 407 Q432 409 430 414 Q428 409 423 407 Q428 405 430 400 Z"/>
+            <path class="spark s4" d="M150 420 Q152 424 156 426 Q152 428 150 432 Q148 428 144 426 Q148 424 150 420 Z" fill="#93C5FD"/>
+          </g>
+
+          <!-- düğümler (hizmetler) -->
+          <!-- Estetik (üst-sağ) -->
+          <g>
+            <circle cx="366" cy="165" r="6" fill="#2563EB"/>
+            <circle cx="366" cy="165" r="11" fill="none" stroke="#2563EB" stroke-opacity="0.35"/>
+            <text class="orbit-label" x="384" y="162">Estetik Diş</text>
+            <text class="orbit-cap"   x="384" y="180">Kaplama · Bonding</text>
+          </g>
+          <!-- İmplant (sol) -->
+          <g>
+            <circle cx="89" cy="337" r="6" fill="#2563EB"/>
+            <circle cx="89" cy="337" r="11" fill="none" stroke="#2563EB" stroke-opacity="0.35"/>
+            <text class="orbit-label" x="71" y="334" text-anchor="end">İmplant</text>
+            <text class="orbit-cap"   x="71" y="352" text-anchor="end">Cerrahi tedavi</text>
+          </g>
+          <!-- Acil (sağ, vurgulu) -->
+          <g>
+            <circle class="node-pulse" cx="484" cy="231" r="9" fill="#3B82F6" opacity="0.5"/>
+            <circle cx="484" cy="231" r="7" fill="#3B82F6"/>
+            <circle cx="484" cy="231" r="12" fill="none" stroke="#3B82F6" stroke-opacity="0.4"/>
+            <text class="orbit-label em" x="466" y="228" text-anchor="end">Acil Müdahale</text>
+            <text class="orbit-cap"      x="466" y="246" text-anchor="end">7/24 gece açık</text>
+          </g>
+        </svg>
+      </div>
+
+    </div>
+
+    <div class="hero-scroll"><span class="bar"></span> Aşağı kaydırın</div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="site-footer">
+  <section class="emergency-band">
+    <div class="container">
+      <p class="eb-eyebrow"><span class="beacon"></span> 7/24 ACİL DİŞ HEKİMİ</p>
+      <div class="eb-grid">
+        <div>
+          <h2>Gece yarısı diş ağrısı beklemez.<br><em>Biz de uyumuyoruz.</em></h2>
+          <p>Randevusuz gelin, kapımız her saat açık. Ağrınız gece 3'te de başlasa, sabahı beklemenize gerek yok — hattımızı arayın, yolunuzu tarif edelim.</p>
+        </div>
+        <div class="eb-cta">
+          <div class="phone-big"><span>7/24 Acil Hat</span><a href="tel:+905435934766">0543 593 47 66</a></div>
+          <div class="eb-buttons">
+            <a href="tel:+905435934766" class="btn btn-emergency"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>Acil Hattı Ara</a>
+            <a href="https://maps.google.com/?q=Fidanl%C4%B1k%2C+Ziya+G%C3%B6kalp+Cd.+31%2F2%2C+06420+%C3%87ankaya%2FAnkara" target="_blank" rel="noopener noreferrer" class="btn-ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>Yol Tarifi Al</a>
+          </div>
+        </div>
+      </div>
+      <svg class="pulse-line" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 20 L360 20 L380 20 L392 6 L406 34 L420 20 L440 20 L640 20 L660 20 L672 6 L686 34 L700 20 L720 20 L1000 20 L1020 20 L1032 6 L1046 34 L1060 20 L1080 20 L1200 20"/>
+      </svg>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="footer-cols">
+      <div class="fc-brand">
+        <a href="./index.html" class="brand" aria-label="Esra Korkmaz Diş Muayenehanesi">
+          <img src="Diş Muayenehanesi (1).png" alt="Esra Korkmaz Diş Muayenehanesi Logo" style="height: 52px; width: auto; display: block;" />
+        </a>
+        <p>Gündüz estetik diş hekimliği, gece acil müdahale. Modern diş hekimliğini şehrin hiç uyumayan kliniğinde sunuyoruz.</p>
+        <div class="socials">
+          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://wa.me/905435934766" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 21l2.2-5.3A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8.5 9c0 3 2.5 5.5 5.5 5.5.6 0 1.2-.8 1.2-1.4 0-.3-1.6-1-1.9-.8-.4.3-.7.8-1 .6-.9-.5-1.8-1.4-2.3-2.3-.2-.3.3-.6.6-1 .2-.3-.5-1.9-.8-1.9C9.3 7.8 8.5 8.4 8.5 9Z"/></svg></a>
+          <a href="https://maps.google.com/?q=Fidanl%C4%B1k%2C+Ziya+G%C3%B6kalp+Cd.+31%2F2%2C+06420+%C3%87ankaya%2FAnkara" target="_blank" rel="noopener noreferrer" aria-label="Konum"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <p class="fc-title">Hızlı Erişim</p>
+        <ul class="fc-links"><li><a href="./index.html">Ana Sayfa</a></li><li><a href="./index.html#about">Hakkımızda</a></li><li><a href="./index.html#clinic">Kliniğimiz</a></li><li><a href="./index.html#reviews">Hasta Yorumları</a></li><li><a href="./index.html#contact">İletişim</a></li></ul>
+      </div>
+      <div>
+        <p class="fc-title">Hizmetler</p>
+        <ul class="fc-links"><li><a href="#services">Diş Beyazlatma</a></li><li><a href="#services">Estetik Diş Hekimliği</a></li><li><a href="#services">Ortodonti</a></li><li><a href="#services">Kanal Tedavisi</a></li><li><a href="#services">Acil Diş Müdahalesi <span class="tag">7/24</span></a></li></ul>
+      </div>
+      <div>
+        <p class="fc-title">Çalışma Saatleri</p>
+        <ul class="hours">
+          <li><span class="day">Pazartesi – Cuma</span><span class="open"><span class="dot"></span>Açık · 7/24</span></li>
+          <li><span class="day">Cumartesi</span><span class="open"><span class="dot"></span>Açık · 7/24</span></li>
+          <li><span class="day">Pazar</span><span class="open"><span class="dot"></span>Açık · 7/24</span></li>
+          <li><span class="day">Resmi Tatiller</span><span class="open"><span class="dot"></span>Açık</span></li>
+        </ul>
+        <ul class="contact-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg><span>Fidanlık, Ziya Gökalp Cd. 31/2, 06420 Çankaya/Ankara</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg><a href="tel:+905435934766">0543 593 47 66</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><a href="mailto:info@esrakorkmaz.com">info@esrakorkmaz.com</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2026 Esra Korkmaz Diş Muayenehanesi. Tüm hakları saklıdır.</p>
+      <div class="legal"><a href="./kvkk.html">KVKK Aydınlatma Metni</a><a href="./gizlilik.html">Gizlilik Politikası</a><a href="./cerezler.html">Çerez Tercihleri</a></div>
+      <p class="credit">Tasarım: <b>Next Medya</b></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var clock = document.getElementById("clock");
+  function tick(){ if(!clock) return;
+    clock.textContent = new Date().toLocaleTimeString("tr-TR",{ timeZone:"Europe/Istanbul", hour:"2-digit", minute:"2-digit" }); }
+  tick(); setInterval(tick, 15000);
+
+  var header = document.getElementById("header");
+  function onScroll(){ header.classList.toggle("scrolled", window.scrollY > 12); }
+  onScroll(); window.addEventListener("scroll", onScroll, { passive:true });
+
+  var toggle = document.getElementById("menuToggle"), menu = document.getElementById("mobileMenu");
+  function setMenu(open){ document.body.classList.toggle("menu-open", open);
+    toggle.setAttribute("aria-expanded", open?"true":"false");
+    toggle.setAttribute("aria-label", open?"Menüyü kapat":"Menüyü aç"); }
+  toggle.addEventListener("click", function(){ setMenu(!document.body.classList.contains("menu-open")); });
+  menu.querySelectorAll("a").forEach(function(a){ a.addEventListener("click", function(){ setMenu(false); }); });
+  document.addEventListener("keydown", function(e){ if(e.key==="Escape") setMenu(false); });
+})();
+</script>
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/905435934766" class="floating-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp ile İletişime Geçin">
+  <span class="whatsapp-ripple"></span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 21l2.2-5.3A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8.5 9c0 3 2.5 5.5 5.5 5.5.6 0 1.2-.8 1.2-1.4 0-.3-1.6-1-1.9-.8-.4.3-.7.8-1 .6-.9-.5-1.8-1.4-2.3-2.3-.2-.3.3-.6.6-1 .2-.3-.5-1.9-.8-1.9C9.3 7.8 8.5 8.4 8.5 9Z"/></svg>
+</a>
+
+</body>
+</html>

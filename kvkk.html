@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KVKK Aydınlatma Metni — Esra Korkmaz Diş Muayenehanesi</title>
+<meta name="description" content="Esra Korkmaz Diş Muayenehanesi Kişisel Verilerin Korunması Kanunu (KVKK) kapsamında Aydınlatma Metni.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   ESRA KORKMAZ DİŞ MUAYENEHANESİ — Design Tokens
+   ============================================================ */
+:root{
+  --white:#FFFFFF; --ice:#F8FAFC; --ice-2:#EFF4FB; --line:#E5EAF2;
+  --ink:#0F172A; --slate:#1E293B; --muted:#64748B; --muted-2:#94A3B8;
+  --royal:#2563EB; --royal-700:#1D4ED8; --beacon:#3B82F6; --beacon-lt:#60A5FA;
+  --night:#0A1533; --night-2:#0E1D45; --night-line:rgba(148,178,255,.14);
+  --on-night:#DCE6FF; --on-night-mut:#8DA2D6;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Manrope",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --container:1240px; --radius:18px; --radius-sm:12px; --radius-pill:999px;
+  --shadow-sm:0 1px 2px rgba(15,23,42,.04),0 2px 8px rgba(15,23,42,.04);
+  --shadow-md:0 8px 30px rgba(15,23,42,.08);
+  --shadow-lg:0 30px 70px rgba(15,23,42,.16);
+  --shadow-royal:0 8px 24px rgba(37,99,235,.28);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+/* ============================================================ RESET */
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body{ font-family:var(--body); color:var(--slate); background:var(--white);
+  line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; overflow-x:hidden; }
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; }
+.container{ width:100%; max-width:var(--container); margin:0 auto; padding-inline:28px; }
+
+/* Header Button */
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:9px; padding:12px 22px;
+  border-radius:var(--radius-pill); font-weight:700; font-size:14px; letter-spacing:-.01em;
+  transition:transform .2s var(--ease), box-shadow .2s var(--ease), background .2s var(--ease); cursor:pointer; border:none; }
+.btn svg{ width:16px; height:16px; transition:transform .2s var(--ease); }
+.btn-primary{ color:#fff; background:linear-gradient(135deg,var(--royal),var(--royal-700)); box-shadow:var(--shadow-royal); }
+.btn-primary:hover{ transform:translateY(-2px); box-shadow:0 14px 34px rgba(37,99,235,.4); }
+.btn-primary:hover svg{ transform:translateX(-3px); }
+.btn:active{ transform:translateY(0); }
+
+/* ============================================================ HEADER */
+.site-header{ position:fixed; inset:0 0 auto 0; z-index:100; padding-top:18px; transition:padding-top .4s var(--ease); }
+.header-inner{ max-width:var(--container); margin:0 auto; padding:14px 20px 14px 24px;
+  display:flex; align-items:center; justify-content:space-between; gap:22px; border-radius:var(--radius-pill); border:1px solid transparent;
+  transition:background .4s var(--ease),border-color .4s var(--ease),box-shadow .4s var(--ease),padding .4s var(--ease),margin .4s var(--ease); }
+.site-header.scrolled{ padding-top:12px; }
+.site-header.scrolled .header-inner{ background:rgba(255,255,255,.72);
+  -webkit-backdrop-filter:blur(18px) saturate(180%); backdrop-filter:blur(18px) saturate(180%);
+  border-color:var(--line); box-shadow:var(--shadow-md); margin-inline:auto; width:calc(100% - 2 * clamp(0px,4vw,40px)); padding-block:11px; }
+
+.brand{ display:flex; align-items:center; gap:12px; flex-shrink:0; }
+.header-logo{ height:64px; width:auto; display:block; transition:height .4s var(--ease); }
+.site-header.scrolled .header-logo{ height:44px; }
+.brand-mark{ width:42px; height:42px; border-radius:13px; display:grid; place-items:center;
+  background:linear-gradient(135deg,var(--royal),var(--royal-700)); box-shadow:var(--shadow-royal); flex-shrink:0; }
+.brand-mark svg{ width:22px; height:22px; }
+.brand-name{ display:flex; flex-direction:column; line-height:1; font-family:var(--display); }
+.brand-name b{ font-weight:700; font-size:17px; letter-spacing:-.02em; color:var(--ink); }
+.brand-name small{ font-family:var(--body); font-weight:500; font-size:10.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--muted-2); margin-top:3px; }
+
+/* ============================================================ HERO BANNER */
+.kvkk-hero{ position:relative; overflow:hidden; padding:170px 0 80px;
+  background:radial-gradient(125% 95% at 74% 6%, #E8F0FE 0%, var(--ice) 32%, var(--white) 66%); border-bottom:1px solid var(--line); }
+.kvkk-hero-inner{ max-width:800px; margin:0 auto; text-align:center; }
+.kvkk-eyebrow{ display:inline-flex; align-items:center; gap:9px; padding:6px 14px; margin-bottom:20px;
+  border:1px solid var(--line); border-radius:var(--radius-pill); background:rgba(255,255,255,.7);
+  font-family:var(--mono); font-size:11.5px; font-weight:600; color:var(--royal); letter-spacing:.04em; }
+.kvkk-hero h1{ font-family:var(--display); font-weight:700; font-size:clamp(32px,4vw,56px);
+  line-height:1.1; letter-spacing:-.03em; color:var(--ink); }
+.kvkk-hero p{ margin-top:16px; font-size:15.5px; color:var(--muted); font-weight:500; }
+
+/* ============================================================ LAYOUT CONTAINER */
+.kvkk-layout{ padding:80px 0 100px; background:var(--white); }
+.kvkk-grid{ display:grid; grid-template-columns:300px 1fr; gap:64px; align-items:start; }
+
+/* Sidebar Navigation */
+.kvkk-sidebar{ position:sticky; top:110px; padding:24px; border-radius:var(--radius);
+  background:var(--ice); border:1px solid var(--line); }
+.kvkk-sidebar h3{ font-family:var(--display); font-size:16px; font-weight:700; color:var(--ink);
+  margin-bottom:16px; letter-spacing:-.01em; text-transform:uppercase; font-size:13px; color:var(--muted); letter-spacing:.08em; }
+.kvkk-menu{ display:flex; flex-direction:column; gap:4px; }
+.kvkk-menu a{ display:block; padding:10px 14px; font-size:14px; font-weight:600; color:var(--slate);
+  border-radius:var(--radius-sm); transition:background .2s, color .2s; }
+.kvkk-menu a:hover{ background:var(--ice-2); color:var(--royal); }
+.kvkk-menu a.active{ background:var(--white); color:var(--royal); border:1px solid var(--line); box-shadow:var(--shadow-sm); }
+
+/* Document Body */
+.kvkk-content{ max-width:780px; }
+.kvkk-sec{ margin-bottom:56px; scroll-margin-top:120px; }
+.kvkk-sec:last-of-type{ margin-bottom:0; }
+.kvkk-sec h2{ font-family:var(--display); font-size:24px; font-weight:700; color:var(--ink);
+  letter-spacing:-.02em; margin-bottom:18px; padding-bottom:10px; border-bottom:1.5px solid var(--line); }
+.kvkk-sec p{ font-size:15px; color:var(--slate); margin-bottom:16px; }
+.kvkk-sec strong{ color:var(--ink); font-weight:600; }
+.kvkk-sec ul{ list-style:disc; padding-left:20px; margin-bottom:16px; }
+.kvkk-sec li{ font-size:15px; color:var(--slate); margin-bottom:8px; }
+.kvkk-sec li::marker{ color:var(--royal); }
+
+/* Alert Box */
+.kvkk-alert{ padding:20px; border-radius:var(--radius-sm); background:rgba(37,99,235,.05);
+  border:1px dashed rgba(37,99,235,.25); margin-bottom:24px; }
+.kvkk-alert p{ margin-bottom:0; font-size:14.5px; color:var(--royal-700); font-weight:500; }
+
+/* ============================================================ FOOTER */
+.site-footer{ background:var(--night); color:var(--on-night); padding:40px 0; border-top:1px solid var(--night-line); }
+.footer-bottom{ display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+.footer-bottom p{ color:var(--on-night-mut); font-size:13px; }
+.footer-bottom .credit{ font-family:var(--mono); font-size:11.5px; color:var(--on-night-mut); }
+.footer-bottom .credit b{ color:var(--on-night); font-weight:500; }
+.footer-bottom .legal a{ color:var(--on-night-mut); font-size:13px; transition:color .2s; }
+.footer-bottom .legal a:hover{ color:var(--on-night); }
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:980px) {
+  .site-header{ padding-top:12px; }
+  .kvkk-hero{ padding:140px 0 60px; }
+  .kvkk-grid{ grid-template-columns:1fr; gap:40px; }
+  .kvkk-sidebar{ position:relative; top:0; padding:16px; }
+  .kvkk-menu{ display:grid; grid-template-columns:repeat(2, 1fr); gap:6px; }
+  .kvkk-layout{ padding:40px 0 60px; }
+}
+
+@media (max-width:580px) {
+  .header-logo{ height:50px !important; }
+  .site-header.scrolled .header-logo{ height:38px !important; }
+  .kvkk-menu{ grid-template-columns:1fr; }
+  .footer-bottom{ flex-direction:column; text-align:center; }
+  .floating-whatsapp{ width:48px; height:48px; bottom:20px; right:20px; box-shadow:0 6px 18px rgba(37,211,102,0.35); }
+  .floating-whatsapp svg{ width:24px; height:24px; }
+  .whatsapp-ripple{ inset:-4px; }
+}
+
+/* Floating WhatsApp Button */
+.floating-whatsapp {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+  z-index: 99;
+  transition: transform .3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow .3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.floating-whatsapp svg {
+  width: 28px;
+  height: 28px;
+}
+.floating-whatsapp:hover {
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
+  color: #fff;
+}
+.floating-whatsapp:active {
+  transform: scale(1) translateY(0);
+}
+.whatsapp-ripple {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid #25D366;
+  animation: whatsapp-ripple-effect 2s infinite;
+  opacity: 0;
+  pointer-events: none;
+}
+@keyframes whatsapp-ripple-effect {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header class="site-header" id="header">
+  <div class="header-inner">
+    <a href="./index.html" class="brand" aria-label="Esra Korkmaz Diş Muayenehanesi ana sayfa">
+      <img src="Diş Muayenehanesi.png" alt="Esra Korkmaz Diş Muayenehanesi Logo" class="header-logo" />
+    </a>
+    <div class="header-actions">
+      <a href="./index.html" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Ana Sayfaya Dön
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════ HERO BANNER ══════════════ -->
+<section class="kvkk-hero">
+  <div class="container">
+    <div class="kvkk-hero-inner">
+      <span class="kvkk-eyebrow">KİŞİSEL VERİLERİN KORUNMASI KANUNU</span>
+      <h1>Aydınlatma Metni</h1>
+      <p>Esra Korkmaz Diş Muayenehanesi olarak kişisel verilerinizin güvenliğine ve gizliliğine önem veriyoruz.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ LAYOUT CONTAINER ══════════════ -->
+<section class="kvkk-layout">
+  <div class="container">
+    <div class="kvkk-grid">
+      
+      <!-- Hızlı Navigasyon -->
+      <aside class="kvkk-sidebar">
+        <h3>HIZLI NAVİGASYON</h3>
+        <nav class="kvkk-menu" aria-label="Aydınlatma Metni Bölümleri">
+          <a href="#veri-sorumlusu" class="active">1. Veri Sorumlusu</a>
+          <a href="#islenen-veriler">2. İşlenen Veriler</a>
+          <a href="#isleme-amaclari">3. İşleme Amaçları</a>
+          <a href="#veri-aktarimi">4. Veri Aktarımı</a>
+          <a href="#toplama-yontemi">5. Yöntem ve Sebep</a>
+          <a href="#ilgili-kisi-haklari">6. Yasal Haklarınız</a>
+          <a href="#basvuru-usulu">7. Başvuru Usulü</a>
+        </nav>
+      </aside>
+
+      <!-- Hukuki Metin İçeriği -->
+      <main class="kvkk-content">
+        
+        <div class="kvkk-alert">
+          <p>Bu aydınlatma metni, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") m. 10 uyarınca, veri sorumlusu sıfatıyla Diş Hekimi Esra Korkmaz tarafından hazırlanmıştır.</p>
+        </div>
+
+        <!-- 1. Veri Sorumlusu -->
+        <section class="kvkk-sec" id="veri-sorumlusu">
+          <h2>1. Veri Sorumlusu</h2>
+          <p>6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, kişisel verileriniz veri sorumlusu sıfatıyla **Diş Hekimi Esra Korkmaz Diş Muayenehanesi** (bundan sonra "Muayenehane" olarak anılacaktır) tarafından aşağıda açıklanan kapsamda işlenebilecektir.</p>
+          <p><strong>Adres:</strong> Fidanlık, Ziya Gökalp Cd. 31/2, 06420 Çankaya/Ankara</p>
+          <p><strong>E-posta:</strong> info@esrakorkmaz.com</p>
+          <p><strong>Telefon:</strong> 0543 593 47 66</p>
+        </section>
+
+        <!-- 2. İşlenen Kişisel Veriler -->
+        <section class="kvkk-sec" id="islenen-veriler">
+          <h2>2. İşlenen Kişisel Veriler</h2>
+          <p>Klinik muayene, tanı, tedavi ve iletişim süreçlerinde işlenebilecek verileriniz şunlardır:</p>
+          <ul>
+            <li><strong>Kimlik Bilgileri:</strong> Ad, soyad, T.C. kimlik numarası, doğum tarihi, cinsiyet.</li>
+            <li><strong>İletişim Bilgileri:</strong> Telefon numarası, e-posta adresi, ev/iş adresi.</li>
+            <li><strong>Özel Nitelikli Kişisel Veriler (Sağlık Verileri):</strong> Ağız ve diş sağlığı geçmişi, tedavi kayıtları, panoramik ve 3B dijital röntgen görüntüleri, kronik rahatsızlıklar, kullanılan ilaçlar, alerjiler ve uygulanan tıbbi müdahaleler.</li>
+            <li><strong>Finansal Bilgiler:</strong> Fatura bilgileri, ödeme ve banka hesap verileri.</li>
+          </ul>
+        </section>
+
+        <!-- 3. Veri İşleme Amaçları -->
+        <section class="kvkk-sec" id="isleme-amaclari">
+          <h2>3. Veri İşleme Amaçları</h2>
+          <p>Kişisel verileriniz ve özel nitelikli sağlık verileriniz, kanunun çizdiği sınırlar çerçevesinde aşağıdaki amaçlarla işlenmektedir:</p>
+          <ul>
+            <li>Tıbbi teşhis, muayene, tedavi ve ağız-diş sağlığı bakım hizmetlerinin yürütülmesi,</li>
+            <li>Randevu taleplerinizin oluşturulması, planlanması ve takibi,</li>
+            <li>Randevu hatırlatmaları, randevu değişiklikleri ve acil durum bilgilendirmelerinin yapılması,</li>
+            <li>Sağlık Bakanlığı, Sosyal Güvenlik Kurumu ve diğer resmi makamların taleplerinin karşılanması ve yasal yükümlülüklerin yerine getirilmesi,</li>
+            <li>Finans, faturalama ve ödeme işlemlerinin takibi ve muhasebe süreçlerinin yönetilmesi.</li>
+          </ul>
+        </section>
+
+        <!-- 4. Kişisel Veri Aktarımı -->
+        <section class="kvkk-sec" id="veri-aktarimi">
+          <h2>4. Kişisel Veri Aktarımı</h2>
+          <p>Kişisel verileriniz, yukarıda belirtilen amaçların gerçekleştirilmesi doğrultusunda ve mevzuatın öngördüğü sınırlar dâhilinde üçüncü kişilere aktarılabilecektir:</p>
+          <ul>
+            <li><strong>Sağlık Bakanlığı</strong> ve ilgili alt kamu idareleri (e-Nabız vb. sistemler üzerinden),</li>
+            <li>Yetkili kamu kurum ve kuruluşları (adli makamlar, SGK vb. yasal talepler doğrultusunda),</li>
+            <li>Hizmet aldığımız mali müşavir, muhasebe danışmanları ve hukuk büroları (hukuki ve mali yükümlülüklerin takibi amacıyla),</li>
+            <li>İletişim altyapısı ve randevu yazılımı desteği aldığımız güvenli yerli teknoloji tedarikçileri.</li>
+          </ul>
+        </section>
+
+        <!-- 5. Yöntem ve Sebep -->
+        <section class="kvkk-sec" id="toplama-yontemi">
+          <h2>5. Veri Toplama Yöntemi ve Hukuki Sebebi</h2>
+          <p>Kişisel verileriniz; kliniğimize gerçekleştirdiğiniz fiziksel ziyaretler, internet sitemiz üzerinde yer alan randevu formları, telefon görüşmeleri, WhatsApp iletişim hattı ve e-posta yazışmaları gibi kanallarla, sözlü, yazılı veya elektronik ortamda toplanmaktadır.</p>
+          <p>Toplanan kişisel verileriniz, KVKK'nın 5. ve 6. maddelerinde belirtilen aşağıdaki hukuki sebeplere dayanmaktadır:</p>
+          <ul>
+            <li><strong>Kanunlarda açıkça öngörülmesi</strong> ve hukuki yükümlülüklerimizin yerine getirilmesi,</li>
+            <li>Sözleşmenin kurulması ve ifası (tıbbi hizmet sözleşmesi),</li>
+            <li>Kamu sağlığının korunması, koruyucu hekimlik, tıbbi teşhis, tedavi ve bakım hizmetlerinin yürütülmesi (Özel nitelikli sağlık verileri için sır saklama yükümlülüğü altındaki hekim sıfatıyla),</li>
+            <li>İlgili kişinin temel hak ve özgürlüklerine zarar vermemek kaydıyla, veri sorumlusunun meşru menfaatleri için veri işlenmesinin zorunlu olması.</li>
+          </ul>
+        </section>
+
+        <!-- 6. Yasal Haklarınız -->
+        <section class="kvkk-sec" id="ilgili-kisi-haklari">
+          <h2>6. İlgili Kişinin Hakları (Madde 11)</h2>
+          <p>KVKK'nın 11. maddesi uyarınca, veri sorumlusuna başvurarak aşağıdaki haklarınızı kullanabilirsiniz:</p>
+          <ul>
+            <li>Kişisel verilerinizin işlenip işlenmediğini öğrenme,</li>
+            <li>İşlenmişse buna ilişkin bilgi talep etme,</li>
+            <li>İşlenme amacını ve bu amaca uygun kullanılıp kullanılmadığını öğrenme,</li>
+            <li>Yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme,</li>
+            <li>Eksik veya yanlış işlenmişse düzeltilmesini isteme,</li>
+            <li>KVKK'nın 7. maddesindeki şartlar çerçevesinde silinmesini veya yok edilmesini isteme,</li>
+            <li>Düzeltme, silme veya yok etme işlemlerinin verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme,</li>
+            <li>İşlenen verilerin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle aleyhinize bir sonucun ortaya çıkmasına itiraz etme,</li>
+            <li>Kanuna aykırı işleme sebebiyle zarara uğramanız hâlinde zararın giderilmesini talep etme.</li>
+          </ul>
+        </section>
+
+        <!-- 7. Başvuru Usulü -->
+        <section class="kvkk-sec" id="basvuru-usulu">
+          <h2>7. Başvuru Usulü</h2>
+          <p>Kanunun 11. maddesinde belirtilen haklarınıza ilişkin taleplerinizi, "Veri Sorumlusuna Başvuru Usul ve Esasları Hakkında Tebliğ" uyarınca; ıslak imzalı bir dilekçe ile fiziki adresimize şahsen başvurarak, noter kanalıyla göndererek veya güvenli elektronik imza (KEP) yoluyla **info@esrakorkmaz.com** adresine e-posta ileterek ulaştırabilirsiniz.</p>
+          <p>Başvurularınız ücretsiz olarak değerlendirilecek ve talebin niteliğine göre **en geç 30 gün içinde** sonuçlandırılarak yazılı veya elektronik ortamda tarafınıza bilgi verilecektir.</p>
+        </section>
+
+      </main>
+      
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2026 Esra Korkmaz Diş Muayenehanesi. Tüm hakları saklıdır.</p>
+      <div class="legal">
+        <a href="./kvkk.html">KVKK Aydınlatma Metni</a>
+        <a href="./gizlilik.html">Gizlilik Politikası</a>
+        <a href="./cerezler.html">Çerez Tercihleri</a>
+      </div>
+      <p class="credit">Tasarım: <b>Next Medya</b></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  // Header Scroll Efekti
+  var header = document.getElementById("header");
+  function onScroll(){ 
+    if(header) {
+      header.classList.toggle("scrolled", window.scrollY > 12); 
+    }
+  }
+  onScroll(); 
+  window.addEventListener("scroll", onScroll, { passive:true });
+
+  // Sidebar Menu Active State Link Scroll Tracking
+  var sections = document.querySelectorAll(".kvkk-sec");
+  var menuLinks = document.querySelectorAll(".kvkk-menu a");
+
+  function onScrollTrackActiveSection() {
+    var scrollPos = window.scrollY || document.documentElement.scrollTop;
+    
+    sections.forEach(function(sec) {
+      var secTop = sec.offsetTop - 140;
+      var secHeight = sec.offsetHeight;
+      var secId = sec.getAttribute("id");
+      
+      if (scrollPos >= secTop && scrollPos < secTop + secHeight) {
+        menuLinks.forEach(function(link) {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === "#" + secId) {
+            link.classList.add("active");
+          }
+        });
+      }
+    });
+  }
+  
+  window.addEventListener("scroll", onScrollTrackActiveSection);
+  window.addEventListener("load", onScrollTrackActiveSection);
+
+  // Click behavior on sidebar links
+  menuLinks.forEach(function(link) {
+    link.addEventListener("click", function() {
+      menuLinks.forEach(function(item) { item.classList.remove("active"); });
+      link.classList.add("active");
+    });
+  });
+
+})();
+</script>
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/905435934766" class="floating-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp ile İletişime Geçin">
+  <span class="whatsapp-ripple"></span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 21l2.2-5.3A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8.5 9c0 3 2.5 5.5 5.5 5.5.6 0 1.2-.8 1.2-1.4 0-.3-1.6-1-1.9-.8-.4.3-.7.8-1 .6-.9-.5-1.8-1.4-2.3-2.3-.2-.3.3-.6.6-1 .2-.3-.5-1.9-.8-1.9C9.3 7.8 8.5 8.4 8.5 9Z"/></svg>
+</a>
+</body>
+</html>
